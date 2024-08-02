@@ -7,7 +7,8 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-/// A package designed to extend the capabilities of Dart collections.
+/// A package designed to extend Dart collections by offering additional
+/// functionality.
 library;
 
 export 'src/_index.g.dart';
