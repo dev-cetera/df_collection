@@ -6,9 +6,9 @@ Dart & Flutter Packages by DevCetra.com & contributors.
 
 ## Summary
 
-A package designed to extend Dart collections. For a full feature set, please refer to the [API reference](https://pub.dev/documentation/df_type/) for more information.
+A package designed to extend Dart collections by offering additional functionality. For a full feature set, please refer to the [API reference](https://pub.dev/documentation/df_collection/).
 
-## Usage
+## Usage Example
 
 ```dart
 // Traverse a map using a list of keys and a set a new value.
