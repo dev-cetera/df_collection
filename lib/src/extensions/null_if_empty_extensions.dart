@@ -11,7 +11,8 @@ import 'dart:collection' show Queue;
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-extension NullIfEmptyOnStringExtension on String {
+// Made private but it is public in df_string package.
+extension _NullIfEmptyOnStringX on String {
   /// Returns null if the String is empty, otherwise returns the String.
   String? get nullIfEmpty {
     return this.isEmpty ? null : this;
@@ -32,7 +33,7 @@ extension NullIfEmptyOnIterableExtension<T> on Iterable<T> {
   }
 }
 
-extension LNullIfEmptyOnListExtension<T> on List<T> {
+extension NullIfEmptyOnListExtension<T> on List<T> {
   /// Returns null if the List is empty, otherwise returns the List.
   List<T>? get nullIfEmpty {
     return this.isEmpty ? null : this;
