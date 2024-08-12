@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.0]
+
+- Released @ 8/2024 (UTC)
+- remove: Removed NullIfEmptyOnStringX  as its defined in df_string package already
+
 ## [0.1.3]
 
 - Released @ 8/2024 (UTC)
