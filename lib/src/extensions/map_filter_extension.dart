@@ -1,8 +1,9 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. See LICENSE file
-// in root directory.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
+// source code is governed by an MIT-style license that can be found in the
+// LICENSE file.
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -12,9 +13,7 @@ extension MapWithDefaultOnMapExtension<K, V> on Map<K, V> {
   /// [defaultValue] for all values that are null. If [defaultValue] is null,
   /// it simply returns a copy of the original map.
   Map<K, dynamic> mapWithDefault(dynamic defaultValue) {
-    return defaultValue != null
-        ? this.map((k, v) => MapEntry(k, v ?? defaultValue))
-        : Map.of(this);
+    return defaultValue != null ? map((k, v) => MapEntry(k, v ?? defaultValue)) : Map.of(this);
   }
 
   /// Filters the map's entries based on a list of included values.
@@ -22,7 +21,7 @@ extension MapWithDefaultOnMapExtension<K, V> on Map<K, V> {
   /// is found within the [includedValues].
   Map<K, V> filterByIncludedValues(List<V> includedValues) {
     return Map.fromEntries(
-      this.entries.where((e) => includedValues.contains(e.value)),
+      entries.where((e) => includedValues.contains(e.value)),
     );
   }
 
@@ -31,7 +30,7 @@ extension MapWithDefaultOnMapExtension<K, V> on Map<K, V> {
   /// is found within the [excludedValues].
   Map<K, V> filterByExcludedValues(List<V> excludedValues) {
     return Map.fromEntries(
-      this.entries.where((e) => !excludedValues.contains(e.value)),
+      entries.where((e) => !excludedValues.contains(e.value)),
     );
   }
 
@@ -40,7 +39,7 @@ extension MapWithDefaultOnMapExtension<K, V> on Map<K, V> {
   /// is found within the [includedKeys].
   Map<K, V> filterByIncludedKeys(List<K> includedKeys) {
     return Map.fromEntries(
-      this.entries.where((e) => includedKeys.contains(e.key)),
+      entries.where((e) => includedKeys.contains(e.key)),
     );
   }
 
@@ -49,7 +48,7 @@ extension MapWithDefaultOnMapExtension<K, V> on Map<K, V> {
   /// is found within the [excludedKeys].
   Map<K, V> filterByExcludedKeys(List<K> excludedKeys) {
     return Map.fromEntries(
-      this.entries.where((e) => !excludedKeys.contains(e.key)),
+      entries.where((e) => !excludedKeys.contains(e.key)),
     );
   }
 }

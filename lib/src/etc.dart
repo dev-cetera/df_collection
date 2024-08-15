@@ -1,8 +1,9 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. See LICENSE file
-// in root directory.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
+// source code is governed by an MIT-style license that can be found in the
+// LICENSE file.
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -27,7 +28,7 @@ extension TryReduceOnIterableExtension<T> on Iterable<T> {
   /// Tries to reduce the iterable, returning null if it fails.
   T? tryReduce(T Function(T, T) combine) {
     try {
-      return this.reduce(combine);
+      return reduce(combine);
     } catch (_) {
       return null;
     }
@@ -40,7 +41,7 @@ extension TryMergeOnIterableExtension<T> on Iterable<Iterable<T>?> {
     Iterable<T> Function(Iterable<T>?, Iterable<T>?)? merge,
   ]) {
     try {
-      return this.reduce(merge ?? (a, b) => <T>[...a ?? [], ...b ?? []]);
+      return reduce(merge ?? (a, b) => <T>[...a ?? [], ...b ?? []]);
     } catch (_) {
       return null;
     }
@@ -61,6 +62,6 @@ String combinedOrderedStringId(List<String> ids) {
 extension TakeLastOnIterableExtension on Iterable<String> {
   /// Takes the last [count] elements from the iterable.
   Iterable<String> takeLast(int count) {
-    return this.toList().reversed.take(count).toList().reversed;
+    return toList().reversed.take(count).toList().reversed;
   }
 }

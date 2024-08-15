@@ -1,8 +1,9 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. See LICENSE file
-// in root directory.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
+// source code is governed by an MIT-style license that can be found in the
+// LICENSE file.
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -15,14 +16,14 @@ extension JoinWithLastSeparatorOnIterableExtension on Iterable {
     String separator = ', ',
     String lastSeparator = ' & ',
   }) {
-    if (this.isEmpty) {
+    if (isEmpty) {
       return '';
     }
-    if (this.length == 1) {
-      return this.first;
+    if (length == 1) {
+      return first;
     }
-    final list = this.toList();
-    if (this.length == 2) {
+    final list = toList();
+    if (length == 2) {
       return list.join(lastSeparator);
     }
 

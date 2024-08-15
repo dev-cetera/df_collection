@@ -1,8 +1,9 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. See LICENSE file
-// in root directory.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
+// source code is governed by an MIT-style license that can be found in the
+// LICENSE file.
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -14,7 +15,7 @@ extension MapIOnIterableExtension<A> on Iterable<A> {
     List<C> options = const [],
   }) {
     var index = 0;
-    return this.map((e) {
+    return map((e) {
       final option = options.length > index ? options[index] : null;
       return mapper(e, index++, option);
     });
@@ -28,7 +29,7 @@ extension MapIOnListExtension<A> on List<A> {
     List<C> options = const [],
   }) {
     var index = 0;
-    return this.map((e) {
+    return map((e) {
       final option = options.length > index ? options[index] : null;
       return mapper(e, index++, option);
     });
@@ -42,7 +43,7 @@ extension MapIOnSetExtension<A> on Set<A> {
     List<C> options = const [],
   }) {
     var index = 0;
-    return this.map((e) {
+    return map((e) {
       final option = options.length > index ? options[index] : null;
       return mapper(e, index++, option);
     });
@@ -56,7 +57,7 @@ extension MapIOnMapExtension<A1, A2> on Map<A1, A2> {
     List<C> options = const [],
   }) {
     var index = 0;
-    return this.map((e1, e2) {
+    return map((e1, e2) {
       final option = options.length > index ? options[index] : null;
       return mapper(e1, e2, index++, option);
     });
