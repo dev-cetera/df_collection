@@ -1,9 +1,11 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
-// source code is governed by an MIT-style license that can be found in the
-// LICENSE file.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// source code is governed by an MIT-style license described in the LICENSE
+// file located in this project's root directory.
+//
+// See: https://opensource.org/license/mit
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -19,10 +21,10 @@ import 'extensions/non_nulls_on_map_extension.dart';
 
 /// Merges two Iterables into one. Supported Iterable types are List, Set, and
 /// Queue.
-Iterable mergeListsSetsOrQueues(Iterable a, Iterable b) {
+Iterable<dynamic> mergeListsSetsOrQueues(Iterable<dynamic> a, Iterable<dynamic> b) {
   final a1 = a.nonNulls;
   final b1 = b.nonNulls;
-  Iterable result;
+  Iterable<dynamic> result;
   if (a1 is List) {
     result = List.of(a1);
     var index = 0;
@@ -52,7 +54,7 @@ Iterable mergeListsSetsOrQueues(Iterable a, Iterable b) {
 }
 
 /// Merges two iterables into one iterable.
-Iterable mergeIterables(dynamic a, dynamic b) {
+Iterable<dynamic> mergeIterables(dynamic a, dynamic b) {
   final aa = a is Iterable ? a.nonNulls : Iterable.generate(1, (_) => a);
   final bb = b is Iterable ? b.nonNulls : Iterable.generate(1, (_) => b);
   return aa.followedBy(bb);
@@ -73,7 +75,7 @@ dynamic mergeDataDeep(
           return mergeDataDeep(a.nonNulls, b.nonNulls, elseFilter);
         }
         if (a is List || a is Set || a is Queue) {
-          return mergeListsSetsOrQueues(a, b);
+          return mergeListsSetsOrQueues(a as Iterable, b as Iterable);
         }
         if (a is Iterable) {
           return mergeIterables(a, b);
@@ -83,7 +85,7 @@ dynamic mergeDataDeep(
     );
   }
   if (a is List || a is Set || a is Queue) {
-    return mergeListsSetsOrQueues(a, b);
+    return mergeListsSetsOrQueues(a as Iterable, b as Iterable);
   }
   if (a is Iterable) {
     return mergeIterables(a, b);

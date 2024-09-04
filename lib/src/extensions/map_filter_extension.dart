@@ -1,9 +1,11 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
-// source code is governed by an MIT-style license that can be found in the
-// LICENSE file.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// source code is governed by an MIT-style license described in the LICENSE
+// file located in this project's root directory.
+//
+// See: https://opensource.org/license/mit
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -13,9 +15,7 @@ extension MapWithDefaultOnMapExtension<K, V> on Map<K, V> {
   /// [defaultValue] for all values that are null. If [defaultValue] is null,
   /// it simply returns a copy of the original map.
   Map<K, dynamic> mapWithDefault(dynamic defaultValue) {
-    return defaultValue != null
-        ? map((k, v) => MapEntry(k, v ?? defaultValue))
-        : Map.of(this);
+    return defaultValue != null ? map((k, v) => MapEntry(k, v ?? defaultValue)) : Map.of(this);
   }
 
   /// Filters the map's entries based on a list of included values.

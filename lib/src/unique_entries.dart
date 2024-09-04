@@ -1,9 +1,11 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
-// source code is governed by an MIT-style license that can be found in the
-// LICENSE file.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// source code is governed by an MIT-style license described in the LICENSE
+// file located in this project's root directory.
+//
+// See: https://opensource.org/license/mit
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -31,8 +33,7 @@ List<MapEntry<K, V>> uniqueEntries<K, V>(Iterable<MapEntry<K, V>> entries) {
   final unique = <MapEntry<K, V>>[];
 
   for (var entry in entries) {
-    if (!uniqueKeys.contains(entry.key) &&
-        !uniqueValues.contains(entry.value)) {
+    if (!uniqueKeys.contains(entry.key) && !uniqueValues.contains(entry.value)) {
       uniqueKeys.add(entry.key);
       uniqueValues.add(entry.value);
       unique.add(MapEntry(entry.key, entry.value));

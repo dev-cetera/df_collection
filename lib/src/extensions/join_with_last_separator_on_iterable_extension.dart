@@ -1,14 +1,16 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
-// source code is governed by an MIT-style license that can be found in the
-// LICENSE file.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// source code is governed by an MIT-style license described in the LICENSE
+// file located in this project's root directory.
+//
+// See: https://opensource.org/license/mit
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension JoinWithLastSeparatorOnIterableExtension on Iterable {
+extension JoinWithLastSeparatorOnIterableExtension on Iterable<dynamic> {
   /// Joins the elements of the iterable into a single string with the given
   /// [separator] and [lastSeparator]. The [lastSeparator] is used to join the
   /// last two elements of the iterable.
@@ -20,7 +22,7 @@ extension JoinWithLastSeparatorOnIterableExtension on Iterable {
       return '';
     }
     if (length == 1) {
-      return first;
+      return first.toString();
     }
     final list = toList();
     if (length == 2) {
