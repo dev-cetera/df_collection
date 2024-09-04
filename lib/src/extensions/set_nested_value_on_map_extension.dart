@@ -27,8 +27,8 @@ extension SetNestedValueOnMapExtension on Map<dynamic, dynamic> {
   void setNestedValue(List<dynamic> keyPath, dynamic value) {
     var currentLevel = this;
     for (var n = 0; n < keyPath.length - 1; n++) {
-      currentLevel =
-          currentLevel.putIfAbsent(keyPath[n], () => <dynamic, dynamic>{}) as Map<dynamic, dynamic>;
+      currentLevel = currentLevel.putIfAbsent(
+          keyPath[n], () => <dynamic, dynamic>{},) as Map<dynamic, dynamic>;
     }
     currentLevel[keyPath.last] = value;
   }

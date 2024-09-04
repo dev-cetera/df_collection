@@ -21,7 +21,8 @@ import 'extensions/non_nulls_on_map_extension.dart';
 
 /// Merges two Iterables into one. Supported Iterable types are List, Set, and
 /// Queue.
-Iterable<dynamic> mergeListsSetsOrQueues(Iterable<dynamic> a, Iterable<dynamic> b) {
+Iterable<dynamic> mergeListsSetsOrQueues(
+    Iterable<dynamic> a, Iterable<dynamic> b,) {
   final a1 = a.nonNulls;
   final b1 = b.nonNulls;
   Iterable<dynamic> result;
