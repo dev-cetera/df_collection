@@ -15,3 +15,5 @@
 library;
 
 export 'src/_index.g.dart';
+
+export 'package:collection/collection.dart';
