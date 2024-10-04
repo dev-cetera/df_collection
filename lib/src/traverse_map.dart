@@ -15,8 +15,11 @@
 /// set to [newValue].
 ///
 /// Returns the value at the end of the traversal.
-dynamic traverseMap(Map<dynamic, dynamic> map, Iterable<dynamic> keys,
-    {dynamic newValue,}) {
+dynamic traverseMap(
+  Map<dynamic, dynamic> map,
+  Iterable<dynamic> keys, {
+  dynamic newValue,
+}) {
   dynamic current = map;
   for (var n = 0; n < keys.length; n++) {
     final key = keys.elementAt(n);

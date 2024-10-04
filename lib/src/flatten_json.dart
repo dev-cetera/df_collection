@@ -61,8 +61,10 @@
 /// //   'emails.1': 'phillip.sherman@gmail.com'
 /// // }
 /// ```
-Map<String, dynamic> flattenJson(Map<String, dynamic> input,
-    {String separator = '.',}) {
+Map<String, dynamic> flattenJson(
+  Map<String, dynamic> input, {
+  String separator = '.',
+}) {
   Map<String, dynamic> $flattenJson(dynamic input, [String prefix = '']) {
     final result = <String, dynamic>{};
     void flatten(String path, dynamic value) {
