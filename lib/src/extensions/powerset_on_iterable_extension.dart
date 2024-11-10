@@ -10,18 +10,22 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension PowersetOnIterableExtension<T> on Iterable<T> {
+extension PowersetOnIterableExtension<T> on Iterable<Iterable<T>> {
   /// Returns the powerset of the [Iterable] using the provided [combinator].
   ///
   /// The powerset of a set is the set of all possible subsets of the set.
   ///
   /// The [combinator] is a function that combines two elements of the set.
   ///
-  /// For example, given the set {1, 2, 3} and the combinator `+`, the powerset
-  /// would be {1, 2, 3, 1+2, 1+3, 2+3, 1+2+3}.
+  /// Example:
+  /// ```dart
+  /// print(
+  ///   powerset({{1}, {2, 3},}, (a, b) => a + b),
+  /// ); // prints {3, 4}
+  /// ```
   Iterable<T> powerset(T Function(T a, T b) combinator) {
     return _powerset(
-      map((e) => {e}).toList(),
+      this,
       combinator,
     );
   }
@@ -35,8 +39,12 @@ final _powerset = powerset;
 ///
 /// The [combinator] is a function that combines two elements of the set.
 ///
-/// For example, given the set {1, 2, 3} and the combinator `+`, the powerset
-/// would be {1, 2, 3, 1+2, 1+3, 2+3, 1+2+3}.
+/// Example:
+/// ```dart
+/// print(
+///   powerset({{1}, {2, 3},}, (a, b) => a + b),
+/// ); // prints {3, 4}
+/// ```
 Iterable<T> powerset<T>(
   Iterable<Iterable<T>> source,
   T Function(T a, T b) combinator,

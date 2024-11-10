@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.6.4]
+
+- Released @ 11`/2024 (UTC)
+- fix: Fix bug with PowersetOnIterableExtension
+
 ## [0.6.2]
 
 - Released @ 11`/2024 (UTC)

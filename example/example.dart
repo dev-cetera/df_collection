@@ -15,6 +15,13 @@ import 'package:df_collection/df_collection.dart';
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 void main() {
+  print(
+    powerset({
+      {1},
+      {2, 3},
+    }, (a, b) => a + b),
+  ); // {3, 4}
+
   // Split a list into chunks of a maximum size.
   final items = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   final batches = items.chunked(4);
