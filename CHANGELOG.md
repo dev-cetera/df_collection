@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.6.1]
+
+- Released @ 11`/2024 (UTC)
+- feat: Add powerset function and PowersetOnIterableExtension
+
 ## [0.6.0]
 
 - Released @ 10/2024 (UTC)
@@ -24,7 +29,7 @@
 ## [0.2.0]
 
 - Released @ 10/2024 (UTC)
-- remove: Removed NullIfEmptyOnStringX  as its defined in df_string package already
+- remove: Removed NullIfEmptyOnStringX as its defined in df_string package already
 - chore: Update dependencies to latest versions
 
 ## [0.1.3]
