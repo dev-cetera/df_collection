@@ -49,29 +49,25 @@ Iterable<T> powerset<T>(
   Iterable<Iterable<T>> source,
   T Function(T a, T b) combinator,
 ) {
-  // Filter out empty sets to simplify logic
-  final input = source.where((e) => e.isNotEmpty).toList();
+  // Filter out empty sets to simplify logic.
+  final input = source.where((e) => e.isNotEmpty);
 
   if (input.isEmpty) {
-    return {};
+    return Iterable.empty();
   } else if (input.length == 1) {
-    return input[0];
+    // Return the first iterable if only one exists.
+    return input.first;
   } else {
-    // Combine the first two sets using the provided combinator
-    final combined = <T>{};
-    for (final a in input[0]) {
-      for (final b in input[1]) {
-        combined.add(combinator(a, b));
-      }
-    }
+    // Use expand to create a lazy flattened iterable from the first two sets.
+    final firstTwoCombined = input.elementAt(0).expand((a) {
+      return input.elementAt(1).map((b) => combinator(a, b));
+    });
 
-    // Recursively process the remaining sets
-    return powerset(
-      [
-        combined,
-        ...input.skip(2),
-      ],
-      combinator,
-    );
+    // If more sets remain, recursively process them.
+    if (input.length > 2) {
+      return powerset([firstTwoCombined, ...input.skip(2)], combinator);
+    } else {
+      return firstTwoCombined;
+    }
   }
 }

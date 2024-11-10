@@ -3,6 +3,11 @@
 ## [0.6.4]
 
 - Released @ 11`/2024 (UTC)
+- fix: Fix bug with powerset function
+
+## [0.6.3]
+
+- Released @ 11`/2024 (UTC)
 - fix: Fix bug with PowersetOnIterableExtension
 
 ## [0.6.2]
