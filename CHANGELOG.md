@@ -1,11 +1,11 @@
 # Changelog
 
-## [0.6.1]
+## [0.6.2]
 
 - Released @ 11`/2024 (UTC)
 - feat: Add powerset function and PowersetOnIterableExtension
 
-## [0.6.0]
+## [0.6.1]
 
 - Released @ 10/2024 (UTC)
 - breaking: Update dependencies and docs
