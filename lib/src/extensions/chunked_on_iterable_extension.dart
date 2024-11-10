@@ -28,19 +28,28 @@ extension ChunkedOnIterableExtension<T> on Iterable<T> {
   }
 }
 
-/// Helper function that creates chunks from the provided [Iterable].
+final _chunked = chunked;
+
+/// Splits the [source] into chunks of a maximum size specified by [chunkSize].
 ///
-/// [source] is the Iterable to split, and [batchSize] defines the maximum
-/// size for each chunk. It generates the chunks lazily as the Iterable is
-/// processed.
-Iterable<Iterable<T>> _chunked<T>(
+/// Each chunk is yielded as a separate [Iterable]. If the number of elements
+/// is not perfectly divisible by [chunkSize], the last chunk will contain
+/// the remaining elements.
+///
+/// Example:
+/// ```dart
+/// final numbers = [1, 2, 3, 4, 5];
+/// final chunks = numbers.chunked(2).toList();
+/// print(chunks); // [[1, 2], [3, 4], [5]]
+/// ```
+Iterable<Iterable<T>> chunked<T>(
   Iterable<T> source,
-  int batchSize,
+  int chunkSize,
 ) sync* {
   var batch = <T>[];
   for (final item in source) {
     batch.add(item);
-    if (batch.length == batchSize) {
+    if (batch.length == chunkSize) {
       yield batch;
       batch = <T>[];
     }

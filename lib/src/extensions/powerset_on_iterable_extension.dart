@@ -11,7 +11,7 @@
 //.title~
 
 extension PowersetOnIterableExtension<T> on Iterable<T> {
-  /// Returns the powerset using the provided [combinator].
+  /// Returns the powerset of the [Iterable] using the provided [combinator].
   ///
   /// The powerset of a set is the set of all possible subsets of the set.
   ///

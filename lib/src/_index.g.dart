@@ -18,7 +18,7 @@ export 'null_filtered.dart';
 export 'flatten_json.dart';
 export 'expand_flattened_json.dart';
 export 'etc.dart';
-export 'chunked.dart';
+export 'extensions/chunked_on_iterable_extension.dart';
 export 'extensions/set_nested_value_on_map_extension.dart';
 export 'extensions/map_keys_and_values_on_map_extension.dart';
 export 'extensions/null_if_empty_extensions.dart';
