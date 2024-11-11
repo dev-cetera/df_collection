@@ -14,7 +14,7 @@ extension UnmodifiableOnMapX<K, V> on Map<K, V> {
   Map<K, V> get unmodifiable => Map.unmodifiable(this);
 }
 
-extension UnmodifiableOnListX<T> on Set<T> {
+extension UnmodifiableOnListX<T> on List<T> {
   List<T> get unmodifiable => List.unmodifiable(this);
 }
 

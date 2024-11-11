@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.8.1]
+
+- Released @ 11`/2024 (UTC)
+- fix: Fix small bug with unmodifiable extension
+
 ## [0.8.0]
 
 - Released @ 11`/2024 (UTC)
