@@ -1,14 +1,14 @@
 # Changelog
 
-## [0.6.3]
+## [0.7.0]
 
 - Released @ 11`/2024 (UTC)
-- fix: Fix bug with PowersetOnIterableExtension
+- breaking: Refactor code base for clarity and consistency
 
 ## [0.6.2]
 
 - Released @ 11`/2024 (UTC)
-- feat: Add powerset function and PowersetOnIterableExtension
+- feat: Add powerset function and PowersetOnIterableX
 
 ## [0.6.1]
 

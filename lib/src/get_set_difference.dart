@@ -10,21 +10,11 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import 'expand_flattened_json.dart';
-import 'flatten_json.dart';
-
-// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-/// Expands a Json map, e.g. `{'a': {'b': 1}}` to `{a.b: 1, b: 1}`.
-Map<String, dynamic> expandJson(
-  Map<String, dynamic> input, {
-  String separator = '.',
-}) {
-  return expandFlattenedJson(
-    flattenJson(
-      input,
-      separator: separator,
-    ),
-    separator: separator,
-  );
+/// Returns the difference between two sets.
+Set<T> getSetDifference<T>(Set<T> before, Set<T> after) {
+  final results = <T>{};
+  for (final a in after) {
+    if (!before.contains(a)) results.add(a);
+  }
+  return results;
 }

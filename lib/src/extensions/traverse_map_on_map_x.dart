@@ -10,33 +10,16 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import 'package:df_collection/df_collection.dart';
+import '/src/traverse_map.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-void main() {
-  // Create a powerset from a list of sets.
-  {
-    final items = [
-      {1, 2},
-      {3, 4, 5},
-    ];
-    final batches = items.powerset((a, b) => a + b);
-    print(batches); // [4, 5, 6, 5, 6, 7]
-  }
-
-  // Split a list into chunks of a maximum size.
-  {
-    final items = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    final batches = items.chunked(4);
-    print(batches); // ([1, 2, 3, 4], [5, 6, 7, 8], [9])
-  }
-
-  // Traverse a map using a list of keys and a set a new value.
-  {
-    var buffer = <dynamic, dynamic>{};
-    buffer.traverse([1, 2, 3, 4], newValue: 5);
-    print(buffer); // {1: {2: {3: {4: 5}}}}
-    print(buffer.traverse([1, 2, 3, 4])); // 5
+extension TraverseMapOnMapX<K, V> on Map<K, V> {
+  /// See [traverseMap].
+  dynamic traverse(
+    List<dynamic> keys, {
+    dynamic newValue,
+  }) {
+    return traverseMap(this, keys, newValue: newValue);
   }
 }

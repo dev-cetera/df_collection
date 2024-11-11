@@ -10,7 +10,7 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension SetNestedValueOnMapExtension on Map<dynamic, dynamic> {
+extension SetNestedValueOnMapX on Map<dynamic, dynamic> {
   /// Sets a [value] in a nested map structure, creating intermediate maps as
   /// needed.
   ///

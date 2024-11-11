@@ -10,7 +10,7 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension JoinWithLastSeparatorOnIterableExtension on Iterable<dynamic> {
+extension JoinWithLastSeparatorOnIterableX on Iterable<dynamic> {
   /// Joins the elements of the iterable into a single string with the given
   /// [separator] and [lastSeparator]. The [lastSeparator] is used to join the
   /// last two elements of the iterable.

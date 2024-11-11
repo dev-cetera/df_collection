@@ -10,16 +10,15 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import '/src/traverse_map.dart';
-
-// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-extension TraverseMapOnMapExtension<K, V> on Map<K, V> {
-  /// See [traverseMap].
-  dynamic traverse(
-    List<dynamic> keys, {
-    dynamic newValue,
-  }) {
-    return traverseMap(this, keys, newValue: newValue);
+extension TryMergeOnIterableX<T> on Iterable<Iterable<T>?> {
+  /// Tries to merge the iterables, returning null if it fails.
+  Iterable<T>? tryMerge([
+    Iterable<T> Function(Iterable<T>?, Iterable<T>?)? merge,
+  ]) {
+    try {
+      return reduce(merge ?? (a, b) => <T>[...a ?? [], ...b ?? []]);
+    } catch (_) {
+      return null;
+    }
   }
 }

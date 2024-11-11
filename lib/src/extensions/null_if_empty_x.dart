@@ -22,35 +22,35 @@ extension _NullIfEmptyOnStringX on String {
   }
 }
 
-extension NullIfEmptyOnMapExtension<T1, T2> on Map<T1, T2> {
+extension NullIfEmptyOnMapX<T1, T2> on Map<T1, T2> {
   /// Returns null if the Map is empty, otherwise returns the Map.
   Map<T1, T2>? get nullIfEmpty {
     return isEmpty ? null : this;
   }
 }
 
-extension NullIfEmptyOnIterableExtension<T> on Iterable<T> {
+extension NullIfEmptyOnIterableX<T> on Iterable<T> {
   /// Returns null if the Iterable is empty, otherwise returns the Iterable.
   Iterable<T>? get nullIfEmpty {
     return isEmpty ? null : this;
   }
 }
 
-extension NullIfEmptyOnListExtension<T> on List<T> {
+extension NullIfEmptyOnListX<T> on List<T> {
   /// Returns null if the List is empty, otherwise returns the List.
   List<T>? get nullIfEmpty {
     return isEmpty ? null : this;
   }
 }
 
-extension NullIfEmptyOnSetExtension<T> on Set<T> {
+extension NullIfEmptyOnSetX<T> on Set<T> {
   /// Returns null if the Set is empty, otherwise returns the Set.
   Set<T>? get nullIfEmpty {
     return isEmpty ? null : this;
   }
 }
 
-extension NullIfEmptyOnQueueExtension<T> on Queue<T> {
+extension NullIfEmptyOnQueueX<T> on Queue<T> {
   /// Returns null if the Queue is empty, otherwise returns the Queue.
   Queue<T>? get nullIfEmpty {
     return isEmpty ? null : this;

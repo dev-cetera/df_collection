@@ -10,29 +10,13 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-/// Expands a flattened JSON map, e.g. `{'a.b': 1}` to `{a.b: 1, b: 1}`.
-Map<String, dynamic> expandFlattenedJson(
-  Map<String, dynamic> input, {
-  String separator = '.',
-}) {
-  final res = {...input};
-  var modified = true;
-  while (modified) {
-    final currentRes = {...res};
-    modified = false;
-    for (final entry in currentRes.entries) {
-      final key = entry.key;
-      final value = entry.value;
-      final parts = key.split(separator);
-      if (parts.length > 1) {
-        final modifiedKey = parts.sublist(1).join(separator);
-        if (!res.containsKey(modifiedKey)) {
-          res[modifiedKey] = value;
-          modified = true;
-        }
-      }
-    }
-  }
-
-  return res;
+/// Generates an ordered ID from a list of unordered IDs, that can be
+/// used to identify the list of IDs.
+///
+/// For example, this can be used to combine user IDs into a single ID that
+/// represents the group of users.
+String combinedOrderedStringId(List<String> ids) {
+  final sorted = ids..sort((a, b) => a.compareTo(b));
+  final combined = sorted.join('_');
+  return combined;
 }

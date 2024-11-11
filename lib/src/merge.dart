@@ -15,7 +15,7 @@ import 'dart:collection' show Queue;
 import 'package:collection/collection.dart' show mergeMaps;
 import 'package:df_type/df_type.dart' show letMapOrNull;
 
-import 'extensions/non_nulls_on_map_extension.dart';
+import 'extensions/non_nulls_on_map_x.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 

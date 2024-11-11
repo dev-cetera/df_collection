@@ -10,7 +10,7 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension PowersetOnIterableExtension<T> on Iterable<Iterable<T>> {
+extension PowersetOnIterableX<T> on Iterable<Iterable<T>> {
   /// Returns the powerset of the [Iterable] using the provided [combinator].
   ///
   /// The powerset of a set is the set of all possible subsets of the set.
