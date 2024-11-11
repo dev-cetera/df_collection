@@ -30,5 +30,5 @@ export 'extensions/set_nested_value_on_map_x.dart';
 export 'extensions/join_with_last_separator_on_iterable_x.dart';
 export 'extensions/null_if_empty_x.dart';
 export 'extensions/generic_type_x.dart';
-export 'utilities/df_json_utility.dart';
-export 'utilities/df_csv_utility.dart';
+export 'utilities/json_utility.dart';
+export 'utilities/csv_utility.dart';

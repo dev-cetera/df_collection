@@ -10,11 +10,12 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-abstract final class DfJsonUtility {
-  const DfJsonUtility._();
+final class JsonUtility {
+  const JsonUtility._();
+  static final i = const JsonUtility._();
 
   /// Expands a Json map, e.g. `{'a': {'b': 1}}` to `{a.b: 1, b: 1}`.
-  static Map<String, dynamic> expandJson(
+  Map<String, dynamic> expandJson(
     Map<String, dynamic> input, {
     String separator = '.',
   }) {
@@ -28,7 +29,7 @@ abstract final class DfJsonUtility {
   }
 
   /// Expands a flattened JSON map, e.g. `{'a.b': 1}` to `{a.b: 1, b: 1}`.
-  static Map<String, dynamic> expandFlattenedJson(
+  Map<String, dynamic> expandFlattenedJson(
     Map<String, dynamic> input, {
     String separator = '.',
   }) {
@@ -103,7 +104,7 @@ abstract final class DfJsonUtility {
   /// //   'emails.1': 'phillip.sherman@gmail.com'
   /// // }
   /// ```
-  static Map<String, dynamic> flattenJson(
+  Map<String, dynamic> flattenJson(
     Map<String, dynamic> input, {
     String separator = '.',
   }) {
@@ -135,7 +136,7 @@ abstract final class DfJsonUtility {
 
   /// Converts a map to a Json map by recursively converting its keys and values
   /// to Json compatible types.
-  static Map<String, dynamic> mapToJson<T1, T2>(
+  Map<String, dynamic> mapToJson<T1, T2>(
     Map<T1, T2> input, {
     Set<Type> typesAllowed = const {},
     String? Function(dynamic)? keyConverter,
@@ -147,7 +148,7 @@ abstract final class DfJsonUtility {
     ) as Map<String, dynamic>;
   }
 
-  static dynamic _mapToJson(
+  dynamic _mapToJson(
     dynamic input,
     Set<Type> typesAllowed,
     String? Function(dynamic)? keyConverter,
@@ -178,12 +179,12 @@ abstract final class DfJsonUtility {
     }
     assert(
       false,
-      '[mapToJson] Unsupported type "${input.runtimeType}"',
+      '[$JsonUtility.mapToJson] Unsupported type "${input.runtimeType}"',
     );
     return input.toString();
   }
 
-  static String? _defaultKeyConverter(dynamic key) {
+  String? _defaultKeyConverter(dynamic key) {
     if (key is DateTime) {
       return key.microsecondsSinceEpoch.toString();
     }

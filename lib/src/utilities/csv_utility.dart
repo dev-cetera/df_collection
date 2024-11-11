@@ -10,11 +10,12 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-abstract final class DfCsvUtility {
-  const DfCsvUtility._();
+final class CsvUtility {
+  const CsvUtility._();
+  static final i = const CsvUtility._();
 
   /// Converts a map to a CSV string.
-  static String mapToCsv(Map<dynamic, dynamic> input) {
+  String mapToCsv(Map<dynamic, dynamic> input) {
     var output = '';
     for (final entry in input.entries) {
       final key = entry.key;
@@ -30,7 +31,7 @@ abstract final class DfCsvUtility {
   }
 
   /// Converts a CSV string to a map.
-  static Map<int, List<String>> csvToMap(String input) {
+  Map<int, List<String>> csvToMap(String input) {
     final processedInput = input.replaceAll(r'\,', '\u{F0001}').replaceAll(r'\"', '\u{F0002}');
     final lines = processedInput.split('\n');
     final res = <int, List<String>>{};
