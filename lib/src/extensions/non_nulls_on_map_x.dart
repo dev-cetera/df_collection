@@ -25,7 +25,9 @@ extension NonNullKeysOnMapX<K, V> on Map<K?, V> {
   /// Returns a new map with all non-null keys and values.
   Map<K, V> get nonNullKeys {
     return Map<K, V>.fromEntries(
-      entries.where((e) => e.key != null).map((e) => MapEntry(e.key as K, e.value)),
+      entries
+          .where((e) => e.key != null)
+          .map((e) => MapEntry(e.key as K, e.value)),
     );
   }
 }
@@ -34,7 +36,9 @@ extension NonNullValuesOnMapX<K, V> on Map<K, V?> {
   /// Returns a new map with all non-null keys and values.
   Map<K, V> get nonNullValues {
     return Map<K, V>.fromEntries(
-      entries.where((e) => e.value != null).map((e) => MapEntry(e.key, e.value as V)),
+      entries
+          .where((e) => e.value != null)
+          .map((e) => MapEntry(e.key, e.value as V)),
     );
   }
 }

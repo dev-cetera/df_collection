@@ -165,7 +165,9 @@ final class JsonUtility {
         ),
       );
     } else if (input is Iterable) {
-      return input.map((e) => _mapToJson(e, typesAllowed, keyConverter)).toList();
+      return input
+          .map((e) => _mapToJson(e, typesAllowed, keyConverter))
+          .toList();
     }
     if ({
       bool,
