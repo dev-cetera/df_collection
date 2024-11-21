@@ -12,8 +12,8 @@
 
 name: df_collection
 description: A package designed to extend Dart collections by offering additional functionality.
-version: 0.8.3
-repository: https://github.com/robmllze/df_collection
+version: 0.8.4
+repository: https://github.com/DevCetra/df_collection
 funding:
   - https://www.buymeacoffee.com/robmllze
 topics:

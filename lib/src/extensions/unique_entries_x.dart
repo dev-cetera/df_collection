@@ -12,7 +12,7 @@
 
 extension UniqueOnMapEntryIterableX<K, V> on Iterable<MapEntry<K, V>> {
   /// Returns only the unique entries in the iterable.
-  List<MapEntry<K, V>> unique() => uniqueEntries(this);
+  List<MapEntry<K, V>> uniqueEntries() => _uniqueEntries(this);
 
   /// Returns only the entries with unique keys in the iterable.
   List<MapEntry<K, V>> uniqueKeys() => _uniqueKeys(this);
@@ -26,14 +26,15 @@ final _uniqueValues = uniqueValues;
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
+final _uniqueEntries = uniqueEntries;
+
 List<MapEntry<K, V>> uniqueEntries<K, V>(Iterable<MapEntry<K, V>> entries) {
   final uniqueKeys = <K>{};
   final uniqueValues = <V>{};
   final unique = <MapEntry<K, V>>[];
 
   for (var entry in entries) {
-    if (!uniqueKeys.contains(entry.key) &&
-        !uniqueValues.contains(entry.value)) {
+    if (!uniqueKeys.contains(entry.key) && !uniqueValues.contains(entry.value)) {
       uniqueKeys.add(entry.key);
       uniqueValues.add(entry.value);
       unique.add(MapEntry(entry.key, entry.value));
