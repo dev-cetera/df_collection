@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.8.4]
+
+- Released @ 11/2024 (UTC)
+- feat: Add UniqueOnIterableX
+
 ## [0.8.3]
 
 - Released @ 11/2024 (UTC)
