@@ -15,8 +15,8 @@ A package designed to extend Dart collections by offering additional functionali
 // Create a powerset from a list of sets.
 {
   final items = [
-      {1, 2},
-      {3, 4, 5},
+    {1, 2},
+    {3, 4, 5},
   ];
   final batches = items.powerset((a, b) => a + b);
   print(batches); // [4, 5, 6, 5, 6, 7]
