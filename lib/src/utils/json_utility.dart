@@ -20,10 +20,7 @@ final class JsonUtility {
     String separator = '.',
   }) {
     return expandFlattenedJson(
-      flattenJson(
-        input,
-        separator: separator,
-      ),
+      flattenJson(input, separator: separator),
       separator: separator,
     );
   }
@@ -141,11 +138,8 @@ final class JsonUtility {
     Set<Type> typesAllowed = const {},
     String? Function(dynamic)? keyConverter,
   }) {
-    return _mapToJson(
-      input,
-      typesAllowed,
-      keyConverter,
-    ) as Map<String, dynamic>;
+    return _mapToJson(input, typesAllowed, keyConverter)
+        as Map<String, dynamic>;
   }
 
   dynamic _mapToJson(
@@ -157,11 +151,7 @@ final class JsonUtility {
       return input.map(
         (k, v) => MapEntry(
           keyConverter?.call(k) ?? _defaultKeyConverter(k) ?? k.toString(),
-          _mapToJson(
-            v,
-            typesAllowed,
-            keyConverter,
-          ),
+          _mapToJson(v, typesAllowed, keyConverter),
         ),
       );
     } else if (input is Iterable) {

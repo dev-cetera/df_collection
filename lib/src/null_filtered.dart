@@ -13,10 +13,10 @@
 /// Converts [input] to a Map with non-null keys and values if `K` and `V` are
 /// non-null.
 Map<K, V> nullFilteredMap<K, V>(Map<dynamic, dynamic> input) {
-  final filtered = input.entries.toList()
-    ..retainWhere(
-      (e) => (null is K || e.key != null) && (null is V || e.value != null),
-    );
+  final filtered =
+      input.entries.toList()..retainWhere(
+        (e) => (null is K || e.key != null) && (null is V || e.value != null),
+      );
   final mapped = filtered.map((e) => MapEntry<K, V>(e.key as K, e.value as V));
   final result = Map.fromEntries(mapped);
   return result;

@@ -42,17 +42,13 @@ extension MapWithDefaultOnMapX<K, V> on Map<K, V> {
   /// Returns a new map containing only the key-value pairs where the key
   /// is found within the [includedKeys].
   Map<K, V> filterByIncludedKeys(List<K> includedKeys) {
-    return Map.fromEntries(
-      entries.where((e) => includedKeys.contains(e.key)),
-    );
+    return Map.fromEntries(entries.where((e) => includedKeys.contains(e.key)));
   }
 
   /// Filters the map's entries based on a list of excluded keys.
   /// Returns a new map excluding the key-value pairs where the key
   /// is found within the [excludedKeys].
   Map<K, V> filterByExcludedKeys(List<K> excludedKeys) {
-    return Map.fromEntries(
-      entries.where((e) => !excludedKeys.contains(e.key)),
-    );
+    return Map.fromEntries(entries.where((e) => !excludedKeys.contains(e.key)));
   }
 }

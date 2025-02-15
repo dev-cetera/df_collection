@@ -16,10 +16,7 @@ import '/src/traverse_map.dart';
 
 extension TraverseMapOnMapX<K, V> on Map<K, V> {
   /// See [traverseMap].
-  dynamic traverse(
-    List<dynamic> keys, {
-    dynamic newValue,
-  }) {
+  dynamic traverse(List<dynamic> keys, {dynamic newValue}) {
     return traverseMap(this, keys, newValue: newValue);
   }
 }

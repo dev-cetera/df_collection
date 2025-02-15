@@ -24,10 +24,7 @@ extension PowersetOnIterableX<T> on Iterable<Iterable<T>> {
   /// ); // prints {3, 4}
   /// ```
   Iterable<T> powerset(T Function(T a, T b) combinator) {
-    return _powerset(
-      this,
-      combinator,
-    );
+    return _powerset(this, combinator);
   }
 }
 

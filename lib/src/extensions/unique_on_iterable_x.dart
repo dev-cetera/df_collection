@@ -19,9 +19,7 @@ extension UniqueOnIterableX<T> on Iterable<T> {
   ///
   /// The order of the elements in the returned iterable is the same as
   /// the order in which they appear in the original iterable.
-  Iterable<T> unique([
-    bool Function(T a, T b)? equals,
-  ]) {
+  Iterable<T> unique([bool Function(T a, T b)? equals]) {
     return _unique<T>(this, equals);
   }
 }
@@ -36,10 +34,7 @@ final _unique = unique;
 ///
 /// The order of the elements in the returned iterable is the same as
 /// the order in which they appear in the original iterable.
-Iterable<T> unique<T>(
-  Iterable<T> src, [
-  bool Function(T a, T b)? equals,
-]) {
+Iterable<T> unique<T>(Iterable<T> src, [bool Function(T a, T b)? equals]) {
   if (equals == null) {
     final seen = <T>{};
     return src.where((element) => seen.add(element));

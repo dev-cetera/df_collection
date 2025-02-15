@@ -42,10 +42,7 @@ final _chunked = chunked;
 /// final chunks = numbers.chunked(2).toList();
 /// print(chunks); // [[1, 2], [3, 4], [5]]
 /// ```
-Iterable<Iterable<T>> chunked<T>(
-  Iterable<T> source,
-  int chunkSize,
-) sync* {
+Iterable<Iterable<T>> chunked<T>(Iterable<T> source, int chunkSize) sync* {
   var batch = <T>[];
   for (final item in source) {
     batch.add(item);
