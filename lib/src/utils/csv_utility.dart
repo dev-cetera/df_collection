@@ -39,17 +39,13 @@ final class CsvUtility {
     final res = <int, List<String>>{};
     for (var i = 0; i < lines.length; i++) {
       final line = lines[i];
-      var parts =
-          line
-              .split(RegExp(r',(?=(?:[^"]*"[^"]*")*[^"]*$)'))
-              .map((part) => part.trim())
-              .toList();
-      parts =
-          parts.map((e) {
-            return e
-                .replaceAll('\u{F0001}', ',')
-                .replaceAll('\u{F0002}', r'\"');
-          }).toList();
+      var parts = line
+          .split(RegExp(r',(?=(?:[^"]*"[^"]*")*[^"]*$)'))
+          .map((part) => part.trim())
+          .toList();
+      parts = parts.map((e) {
+        return e.replaceAll('\u{F0001}', ',').replaceAll('\u{F0002}', r'\"');
+      }).toList();
 
       res[i] = parts;
     }
