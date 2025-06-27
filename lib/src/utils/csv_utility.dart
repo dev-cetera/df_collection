@@ -44,7 +44,9 @@ final class CsvUtility {
       final line = lines[i];
       final parts = line.split(regex).map((part) {
         var trimmed = part.trim();
-        if (trimmed.length >= 2 && trimmed.startsWith('"') && trimmed.endsWith('"')) {
+        if (trimmed.length >= 2 &&
+            trimmed.startsWith('"') &&
+            trimmed.endsWith('"')) {
           trimmed = trimmed.substring(1, trimmed.length - 1);
           return trimmed.replaceAll('""', '"');
         }
