@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.9.8]
+
+- Released @ 6/2025 (UTC)
+- Refector and add deepGet utility
+
 ## [0.9.7]
 
 - Released @ 6/2025 (UTC)
