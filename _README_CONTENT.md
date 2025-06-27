@@ -5,13 +5,13 @@ A package designed to extend Dart collections by offering additional functionali
 ## Example
 
 ```dart
-// Create a powerset from a list of sets.
+// Create the cartesian product from a list of sets.
 {
   final items = [
     {1, 2},
     {3, 4, 5},
   ];
-  final batches = items.powerset((a, b) => a + b);
+  final batches = items.cartesianProduct((a, b) => a + b);
   print(batches); // [4, 5, 6, 5, 6, 7]
 }
 
