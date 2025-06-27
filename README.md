@@ -6,7 +6,7 @@ Dart & Flutter Packages by dev-cetera.com & contributors.
 [![sponsor](https://img.shields.io/badge/sponsor-grey?logo=github-sponsors)](https://github.com/sponsors/dev-cetera)
 [![patreon](https://img.shields.io/badge/patreon-grey?logo=patreon)](https://www.patreon.com/c/RobertMollentze)
 [![pub](https://img.shields.io/pub/v/df_collection.svg)](https://pub.dev/packages/df_collection)
-[![tag](https://img.shields.io/badge/tag-v0.9.5-purple?logo=github)](https://github.com/dev-cetera/df_collection/tree/v0.9.5)
+[![tag](https://img.shields.io/badge/tag-v0.9.6-purple?logo=github)](https://github.com/dev-cetera/df_collection/tree/v0.9.6)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dev-cetera/df_collection/main/LICENSE)
 
 ---
@@ -20,13 +20,13 @@ A package designed to extend Dart collections by offering additional functionali
 ## Example
 
 ```dart
-// Create the cartesian product from a list of sets.
+// Create a powerset from a list of sets.
 {
   final items = [
     {1, 2},
     {3, 4, 5},
   ];
-  final batches = items.cartesianProduct((a, b) => a + b);
+  final batches = items.powerset((a, b) => a + b);
   print(batches); // [4, 5, 6, 5, 6, 7]
 }
 
