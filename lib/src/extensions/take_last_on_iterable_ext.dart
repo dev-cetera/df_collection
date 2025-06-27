@@ -10,14 +10,24 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension UnmodifiableOnMapX<K, V> on Map<K, V> {
-  Map<K, V> get unmodifiable => Map.unmodifiable(this);
-}
+import 'dart:collection' show Queue;
 
-extension UnmodifiableOnListX<T> on List<T> {
-  List<T> get unmodifiable => List.unmodifiable(this);
-}
+// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-extension UnmodifiableOnSetX<T> on Set<T> {
-  Set<T> get unmodifiable => Set.unmodifiable(this);
+extension TakeLastOnIterableExt<T> on Iterable<T> {
+  Iterable<T> takeLast(int count) {
+    if (count <= 0) return Iterable<T>.empty();
+    if (this is List) {
+      final list = this as List<T>;
+      return list.skip(list.length - count);
+    }
+    final queue = Queue<T>();
+    for (final element in this) {
+      queue.add(element);
+      if (queue.length > count) {
+        queue.removeFirst();
+      }
+    }
+    return queue;
+  }
 }

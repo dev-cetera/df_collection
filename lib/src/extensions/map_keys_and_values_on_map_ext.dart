@@ -10,15 +10,18 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension GenericTypeOnIterableX<T> on Iterable<T> {
-  /// Returns the generic type of the iterable.
-  Type get genericType => T;
-}
+extension MapKeysAndValyesOnMapExt<K1, V1> on Map<K1, V1> {
+  /// Returns a new map with new keys and the same values.
+  Map<K2, V1> mapKeys<K2>(K2 Function(K1 key) mapper) {
+    return Map.fromEntries(
+      entries.map((e) => MapEntry(mapper(e.key), e.value)),
+    );
+  }
 
-extension GenericTypeOnMapX<K, V> on Map<K, V> {
-  /// Returns the generic type of the map's keys.
-  Type get genericTypeKey => K;
-
-  /// Returns the generic type of the map's values.
-  Type get genericTypeValue => V;
+  /// Returns a new map with the same keys and new values.
+  Map<K1, V2> mapValues<V2>(V2 Function(V1 value) mapper) {
+    return Map.fromEntries(
+      entries.map((e) => MapEntry(e.key, mapper(e.value))),
+    );
+  }
 }

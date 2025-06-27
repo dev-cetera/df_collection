@@ -10,7 +10,7 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension SetNestedValueOnMapX on Map<dynamic, dynamic> {
+extension SetNestedValueOnMapExt on Map<dynamic, dynamic> {
   /// Sets a [value] in a nested map structure, creating intermediate maps as
   /// needed.
   ///
@@ -27,9 +27,15 @@ extension SetNestedValueOnMapX on Map<dynamic, dynamic> {
   void setNestedValue(List<dynamic> keyPath, dynamic value) {
     var currentLevel = this;
     for (var n = 0; n < keyPath.length - 1; n++) {
-      currentLevel =
-          currentLevel.putIfAbsent(keyPath[n], () => <dynamic, dynamic>{})
-              as Map<dynamic, dynamic>;
+      final key = keyPath[n];
+      final nextLevel = currentLevel[key];
+      if (nextLevel is Map<dynamic, dynamic>) {
+        currentLevel = nextLevel;
+      } else {
+        final newMap = <dynamic, dynamic>{};
+        currentLevel[key] = newMap;
+        currentLevel = newMap;
+      }
     }
     currentLevel[keyPath.last] = value;
   }

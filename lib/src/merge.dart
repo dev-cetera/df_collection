@@ -11,92 +11,70 @@
 //.title~
 
 import 'dart:collection' show Queue;
-
-import 'package:collection/collection.dart' show mergeMaps;
 import 'package:df_type/df_type.dart' show letMapOrNull;
 
-import 'extensions/non_nulls_on_map_x.dart';
+extension _NonNullsOnIterable<T> on Iterable<T?> {
+  Iterable<T> get nonNulls => where((e) => e != null).cast<T>();
+}
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// Merges two Iterables into one. Supported Iterable types are List, Set, and
-/// Queue.
 Iterable<dynamic> mergeListsSetsOrQueues(
   Iterable<dynamic> a,
-  Iterable<dynamic> b,
-) {
-  final a1 = a.nonNulls;
-  final b1 = b.nonNulls;
-  Iterable<dynamic> result;
-  if (a1 is List) {
-    result = List.of(a1);
-    var index = 0;
-    for (var item in b1) {
-      if (result.length <= index || result.elementAt(index) != item) {
-        (result as dynamic).add(item);
-      }
-      index++;
-    }
-  } else if (a1 is Set) {
-    result = Set.of(a1);
-    (result as dynamic).addAll(b1);
-  } else if (a1 is Queue) {
-    result = Queue.of(a1);
-    var index = 0;
-    for (var item in b1) {
-      if (result.length <= index || result.elementAt(index) != item) {
-        (result as dynamic).add(item);
-      }
-      index++;
-    }
+  Iterable<dynamic> b, [
+  dynamic Function(dynamic)? elseFilter,
+]) {
+  if (a is Set) {
+    final a1 = a.nonNulls.toSet();
+    final b1 = b.nonNulls;
+    return a1..addAll(b1);
+  } else if (a is Queue) {
+    final a1 = a.nonNulls;
+    final b1 = b.nonNulls;
+    final mergedList = _performElementWiseMerge(a1, b1, elseFilter);
+    return Queue.of(mergedList);
   } else {
-    throw ArgumentError('Unsupported Iterable type');
+    final a1 = a.nonNulls;
+    final b1 = b.nonNulls;
+    return _performElementWiseMerge(a1, b1, elseFilter);
   }
-
-  return result;
 }
 
-/// Merges two iterables into one iterable.
 Iterable<dynamic> mergeIterables(dynamic a, dynamic b) {
   final aa = a is Iterable ? a.nonNulls : Iterable.generate(1, (_) => a);
   final bb = b is Iterable ? b.nonNulls : Iterable.generate(1, (_) => b);
   return aa.followedBy(bb);
 }
 
-/// Merges two data structures deeply.
 dynamic mergeDataDeep(
   dynamic a,
   dynamic b, [
   dynamic Function(dynamic)? elseFilter,
 ]) {
   if (a is Map && b is Map) {
-    return mergeMaps(
-      a,
-      b,
-      value: (a, b) {
-        if (a is Map && b is Map) {
-          return mergeDataDeep(a.nonNulls, b.nonNulls, elseFilter);
-        }
-        if (a is List || a is Set || a is Queue) {
-          return mergeListsSetsOrQueues(a as Iterable, b as Iterable);
-        }
-        if (a is Iterable) {
-          return mergeIterables(a, b);
-        }
-        return elseFilter?.call(b) ?? b;
-      },
-    );
+    final result = Map<dynamic, dynamic>.from(a);
+    for (final key in b.keys) {
+      if (result.containsKey(key)) {
+        result[key] = mergeDataDeep(result[key], b[key], elseFilter);
+      } else {
+        result[key] = mergeDataDeep(null, b[key], elseFilter);
+      }
+    }
+    return result;
   }
-  if (a is List || a is Set || a is Queue) {
-    return mergeListsSetsOrQueues(a as Iterable, b as Iterable);
+  if ((a is List || a is Set || a is Queue) && b is Iterable) {
+    return mergeListsSetsOrQueues(a as Iterable, b, elseFilter);
   }
-  if (a is Iterable) {
+  if (a is Iterable && b is Iterable) {
     return mergeIterables(a, b);
   }
-  return elseFilter?.call(b) ?? b;
+  if (elseFilter != null) {
+    return elseFilter(b);
+  } else {
+    return b;
+  }
 }
 
-/// Merges all [maps] deeply.
 Map<K, V> mergeMapsDeep<K, V>(List<Map<K, V>> maps) {
   var a = <K, V>{};
   for (final b in maps) {
@@ -108,31 +86,44 @@ Map<K, V> mergeMapsDeep<K, V>(List<Map<K, V>> maps) {
   return a;
 }
 
-/// Merges two data structures deeply and tries to perform toJson on objects.
 dynamic mergeDataDeepIncludeCallsToJson(dynamic a, dynamic b) {
   return mergeDataDeep(a, b, tryToJson);
 }
 
-/// Merges two data structures deeply and tries to perform toMap on objects.
 dynamic mergeDataDeepIncludeCallsToMap(dynamic a, dynamic b) {
   return mergeDataDeep(a, b, tryToMap);
 }
 
-/// Tries to convert an object to a json map by calling its toJson method if it
-/// exists.
 dynamic tryToJson(dynamic object) {
   try {
     return object?.toJson();
   } catch (_) {
-    return null;
+    return object;
   }
 }
 
-/// Tries to convert an object to a map by calling its toMap method if it exists.
 dynamic tryToMap(dynamic object) {
   try {
     return object?.toMap();
   } catch (_) {
-    return null;
+    return object;
   }
+}
+
+List<dynamic> _performElementWiseMerge(
+  Iterable<dynamic> a,
+  Iterable<dynamic> b, [
+  dynamic Function(dynamic)? elseFilter,
+]) {
+  final result = a.toList();
+  final bList = b.toList();
+  for (var i = 0; i < bList.length; i++) {
+    final itemB = bList[i];
+    if (i >= result.length) {
+      result.add(mergeDataDeep(null, itemB, elseFilter));
+    } else {
+      result[i] = mergeDataDeep(result[i], itemB, elseFilter);
+    }
+  }
+  return result;
 }

@@ -15,42 +15,42 @@ import 'dart:collection' show Queue;
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 // Made private but it is public in df_string package.
-extension _NullIfEmptyOnStringX on String {
+extension _NullIfEmptyOnStringExt on String {
   /// Returns null if the String is empty, otherwise returns the String.
   String? get nullIfEmpty {
     return isEmpty ? null : this;
   }
 }
 
-extension NullIfEmptyOnMapX<T1, T2> on Map<T1, T2> {
+extension NullIfEmptyOnMapExt<T1, T2> on Map<T1, T2> {
   /// Returns null if the Map is empty, otherwise returns the Map.
   Map<T1, T2>? get nullIfEmpty {
     return isEmpty ? null : this;
   }
 }
 
-extension NullIfEmptyOnIterableX<T> on Iterable<T> {
+extension NullIfEmptyOnIterableExt<T> on Iterable<T> {
   /// Returns null if the Iterable is empty, otherwise returns the Iterable.
   Iterable<T>? get nullIfEmpty {
     return isEmpty ? null : this;
   }
 }
 
-extension NullIfEmptyOnListX<T> on List<T> {
+extension NullIfEmptyOnListExt<T> on List<T> {
   /// Returns null if the List is empty, otherwise returns the List.
   List<T>? get nullIfEmpty {
     return isEmpty ? null : this;
   }
 }
 
-extension NullIfEmptyOnSetX<T> on Set<T> {
+extension NullIfEmptyOnSetExt<T> on Set<T> {
   /// Returns null if the Set is empty, otherwise returns the Set.
   Set<T>? get nullIfEmpty {
     return isEmpty ? null : this;
   }
 }
 
-extension NullIfEmptyOnQueueX<T> on Queue<T> {
+extension NullIfEmptyOnQueueExt<T> on Queue<T> {
   /// Returns null if the Queue is empty, otherwise returns the Queue.
   Queue<T>? get nullIfEmpty {
     return isEmpty ? null : this;

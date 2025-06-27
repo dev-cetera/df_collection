@@ -10,39 +10,33 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension PowersetOnIterableX<T> on Iterable<Iterable<T>> {
-  /// Returns the powerset of the [Iterable] using the provided [combinator].
-  ///
-  /// The powerset of a set is the set of all possible subsets of the set.
-  ///
-  /// The [combinator] is a function that combines two elements of the set.
+extension CartesianProductOnIterableExt<T> on Iterable<Iterable<T>> {
+  /// Creates the Cartesian product of the iterables and combines each resulting
+  /// pair using the [combinator] function.
   ///
   /// Example:
   /// ```dart
-  /// print(
-  ///   powerset({{1}, {2, 3},}, (a, b) => a + b),
-  /// ); // prints {3, 4}
+  /// final sets = [{1, 2}, {10, 20}];
+  /// final combined = sets.cartesianProduct((a, b) => a + b);
+  /// print(combined); // (11, 21, 12, 22)
   /// ```
-  Iterable<T> powerset(T Function(T a, T b) combinator) {
-    return _powerset(this, combinator);
+  Iterable<T> cartesianProduct(T Function(T a, T b) combinator) {
+    return _cartesianProduct(this, combinator);
   }
 }
 
-final _powerset = powerset;
+final _cartesianProduct = cartesianProduct;
 
-/// Returns the powerset of the given [source] using the provided [combinator].
-///
-/// The powerset of a set is the set of all possible subsets of the set.
-///
-/// The [combinator] is a function that combines two elements of the set.
+/// Creates the Cartesian product of the iterables and combines each resulting
+/// pair using the [combinator] function.
 ///
 /// Example:
 /// ```dart
-/// print(
-///   powerset({{1}, {2, 3},}, (a, b) => a + b),
-/// ); // prints {3, 4}
+/// final sets = [{1, 2}, {10, 20}];
+/// final combined = sets.cartesianProduct((a, b) => a + b);
+/// print(combined); // (11, 21, 12, 22)
 /// ```
-Iterable<T> powerset<T>(
+Iterable<T> cartesianProduct<T>(
   Iterable<Iterable<T>> source,
   T Function(T a, T b) combinator,
 ) {
@@ -62,7 +56,7 @@ Iterable<T> powerset<T>(
 
     // If more sets remain, recursively process them.
     if (input.length > 2) {
-      return powerset([firstTwoCombined, ...input.skip(2)], combinator);
+      return cartesianProduct([firstTwoCombined, ...input.skip(2)], combinator);
     } else {
       return firstTwoCombined;
     }

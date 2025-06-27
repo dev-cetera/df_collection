@@ -10,15 +10,14 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension TryMergeOnIterableX<T> on Iterable<Iterable<T>?> {
-  /// Tries to merge the iterables, returning null if it fails.
-  Iterable<T>? tryMerge([
-    Iterable<T> Function(Iterable<T>?, Iterable<T>?)? merge,
-  ]) {
-    try {
-      return reduce(merge ?? (a, b) => <T>[...a ?? [], ...b ?? []]);
-    } catch (_) {
-      return null;
-    }
-  }
+extension UnmodifiableOnMapExt<K, V> on Map<K, V> {
+  Map<K, V> get unmodifiable => Map.unmodifiable(this);
+}
+
+extension UnmodifiableOnListExt<T> on List<T> {
+  List<T> get unmodifiable => List.unmodifiable(this);
+}
+
+extension UnmodifiableOnSetExt<T> on Set<T> {
+  Set<T> get unmodifiable => Set.unmodifiable(this);
 }

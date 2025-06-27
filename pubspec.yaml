@@ -16,7 +16,7 @@ repository: https://github.com/robmllze/df_collection
 funding:
   - https://www.buymeacoffee.com/dev_cetera
 description: A package designed to extend Dart collections by offering additional functionality.
-version: 0.9.4
+version: 0.9.5
 topics:
   - collection
   - json
@@ -33,10 +33,11 @@ environment:
 
 dependencies:
   collection: ^1.19.1
-  df_type: ^0.12.3
+  df_type: ^0.14.1
 
 ## -----------------------------------------------------------------------------
 
 dev_dependencies:
   lints: ^6.0.0
+  test:
 

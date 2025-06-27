@@ -10,9 +10,15 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension ToMapOnIterableX<K, V> on Iterable<MapEntry<K, V>> {
-  /// Converts an iterable of [MapEntry] to a [Map].
-  Map<K, V> toMap() {
-    return Map.fromEntries(this);
+extension TryMergeOnIterableExt<T> on Iterable<Iterable<T>?> {
+  /// Tries to merge the iterables, returning null if it fails.
+  Iterable<T>? tryMerge([
+    Iterable<T> Function(Iterable<T>?, Iterable<T>?)? merge,
+  ]) {
+    try {
+      return reduce(merge ?? (a, b) => <T>[...a ?? [], ...b ?? []]);
+    } catch (_) {
+      return null;
+    }
   }
 }

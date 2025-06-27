@@ -10,7 +10,7 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension UniqueOnMapEntryIterableX<K, V> on Iterable<MapEntry<K, V>> {
+extension UniqueOnMapEntryIterableExt<K, V> on Iterable<MapEntry<K, V>> {
   /// Returns only the unique entries in the iterable.
   List<MapEntry<K, V>> uniqueEntries() => _uniqueEntries(this);
 

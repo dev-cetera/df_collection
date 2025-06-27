@@ -10,13 +10,9 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension TryReduceOnIterableX<T> on Iterable<T> {
-  /// Tries to reduce the iterable, returning null if it fails.
-  T? tryReduce(T Function(T, T) combine) {
-    try {
-      return reduce(combine);
-    } catch (_) {
-      return null;
-    }
+extension ToMapOnIterableExt<K, V> on Iterable<MapEntry<K, V>> {
+  /// Converts an iterable of [MapEntry] to a [Map].
+  Map<K, V> toMap() {
+    return Map.fromEntries(this);
   }
 }

@@ -10,7 +10,7 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension UniqueOnIterableX<T> on Iterable<T> {
+extension UniqueOnIterableExt<T> on Iterable<T> {
   /// Returns a new iterable with all duplicate elements removed.
   ///
   /// The [equals] function is used to determine if two elements are equal.

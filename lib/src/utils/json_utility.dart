@@ -138,8 +138,7 @@ final class JsonUtility {
     Set<Type> typesAllowed = const {},
     String? Function(dynamic)? keyConverter,
   }) {
-    return _mapToJson(input, typesAllowed, keyConverter)
-        as Map<String, dynamic>;
+    return _mapToJson(input, typesAllowed, keyConverter) as Map<String, dynamic>;
   }
 
   dynamic _mapToJson(
@@ -155,9 +154,7 @@ final class JsonUtility {
         ),
       );
     } else if (input is Iterable) {
-      return input
-          .map((e) => _mapToJson(e, typesAllowed, keyConverter))
-          .toList();
+      return input.map((e) => _mapToJson(e, typesAllowed, keyConverter)).toList();
     }
     if ({
       bool,
@@ -169,11 +166,9 @@ final class JsonUtility {
     }.contains(input.runtimeType)) {
       return input;
     }
-    assert(
-      false,
-      '[$JsonUtility.mapToJson] Unsupported type "${input.runtimeType}"',
+    throw UnsupportedError(
+      '[JsonUtility.mapToJson] Unsupported type "${input.runtimeType}" found.',
     );
-    return input.toString();
   }
 
   String? _defaultKeyConverter(dynamic key) {

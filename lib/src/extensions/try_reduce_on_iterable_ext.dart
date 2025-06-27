@@ -10,13 +10,13 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import '/src/traverse_map.dart';
-
-// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-extension TraverseMapOnMapX<K, V> on Map<K, V> {
-  /// See [traverseMap].
-  dynamic traverse(List<dynamic> keys, {dynamic newValue}) {
-    return traverseMap(this, keys, newValue: newValue);
+extension TryReduceOnIterableExt<T> on Iterable<T> {
+  /// Tries to reduce the iterable, returning null if it fails.
+  T? tryReduce(T Function(T, T) combine) {
+    try {
+      return reduce(combine);
+    } catch (_) {
+      return null;
+    }
   }
 }

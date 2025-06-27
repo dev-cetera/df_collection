@@ -10,9 +10,13 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension TakeLastOnIterableX on Iterable<String> {
-  /// Takes the last [count] elements from the iterable.
-  Iterable<String> takeLast(int count) {
-    return toList().reversed.take(count).toList().reversed;
+import '/src/traverse_map.dart';
+
+// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+extension TraverseMapOnMapExt<K, V> on Map<K, V> {
+  /// See [traverseMap].
+  dynamic traverse(List<dynamic> keys, {dynamic newValue}) {
+    return traverseMap(this, keys, newValue: newValue);
   }
 }

@@ -17,7 +17,7 @@ Iterable<T>? maybeAddToIterable<T>(Iterable<T>? source, Iterable<T>? add) {
   return [...source, ...add];
 }
 
-extension MaybeAddToIterableX<T> on Iterable<T> {
+extension MaybeAddToIterableExt<T> on Iterable<T> {
   /// Adds [add] to this its not null.
   Iterable<T>? maybeAdd(Iterable<T>? add) => maybeAddToIterable(this, add)!;
 }
@@ -29,7 +29,7 @@ List<T>? maybeAddToList<T>(List<T>? source, List<T>? add) {
   return [...source, ...add];
 }
 
-extension MaybeAddToListX<T> on List<T> {
+extension MaybeAddToListExt<T> on List<T> {
   /// Adds [add] to this its not null.
   List<T> maybeAdd(List<T>? add) => maybeAddToList(this, add)!;
 }
@@ -41,7 +41,7 @@ Set<T>? maybeAddToSet<T>(Set<T>? source, Set<T>? add) {
   return {...source, ...add};
 }
 
-extension MaybeAddToSetX<T> on Set<T> {
+extension MaybeAddToSetExt<T> on Set<T> {
   /// Adds [add] to this its not null.
   Set<T> maybeAdd(Set<T>? add) => maybeAddToSet(this, add)!;
 }
@@ -53,7 +53,7 @@ Map<T1, T2>? maybeAddToMap<T1, T2>(Map<T1, T2>? source, Map<T1, T2>? add) {
   return {...source, ...add};
 }
 
-extension MaybeAddToMapX<T1, T2> on Map<T1, T2> {
+extension MaybeAddToMapExt<T1, T2> on Map<T1, T2> {
   /// Adds [add] to this its not null.
   Map<T1, T2> maybeAdd(Map<T1, T2>? add) => maybeAddToMap(this, add)!;
 }

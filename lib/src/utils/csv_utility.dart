@@ -14,39 +14,42 @@ final class CsvUtility {
   const CsvUtility._();
   static final i = const CsvUtility._();
 
-  /// Converts a map to a CSV string.
-  String mapToCsv(Map<dynamic, dynamic> input) {
-    var output = '';
-    for (final entry in input.entries) {
-      final key = entry.key;
-      dynamic value = entry.value;
-      if (value is Map) {
-        value = mapToCsv(value);
-      } else if (value is List) {
-        value = value.join(',');
-      }
-      output += '"$key","$value"\n';
+  /// Escapes a single field for CSV formatting.
+  String _escape(dynamic field) {
+    final value = field.toString();
+    // If the value contains a comma, quote, or newline, it must be quoted.
+    if (value.contains(',') || value.contains('"') || value.contains('\n')) {
+      final escaped = value.replaceAll('"', '""');
+      return '"$escaped"';
     }
-    return output;
+    return value;
   }
 
-  /// Converts a CSV string to a map.
+  String mapToCsv(Map<dynamic, dynamic> input) {
+    final buffer = StringBuffer();
+    for (final entry in input.entries) {
+      final key = _escape(entry.key);
+      final value = _escape(entry.value);
+      buffer.writeln('$key,$value');
+    }
+    return buffer.toString();
+  }
+
   Map<int, List<String>> csvToMap(String input) {
-    final processedInput = input
-        .replaceAll(r'\,', '\u{F0001}')
-        .replaceAll(r'\"', '\u{F0002}');
-    final lines = processedInput.split('\n');
+    final regex = RegExp(r',(?=(?:[^"]*"[^"]*")*[^"]*$)');
+    final lines = input.split('\n').where((line) => line.isNotEmpty).toList();
     final res = <int, List<String>>{};
+
     for (var i = 0; i < lines.length; i++) {
       final line = lines[i];
-      var parts = line
-          .split(RegExp(r',(?=(?:[^"]*"[^"]*")*[^"]*$)'))
-          .map((part) => part.trim())
-          .toList();
-      parts = parts.map((e) {
-        return e.replaceAll('\u{F0001}', ',').replaceAll('\u{F0002}', r'\"');
+      final parts = line.split(regex).map((part) {
+        var trimmed = part.trim();
+        if (trimmed.length >= 2 && trimmed.startsWith('"') && trimmed.endsWith('"')) {
+          trimmed = trimmed.substring(1, trimmed.length - 1);
+          return trimmed.replaceAll('""', '"');
+        }
+        return trimmed;
       }).toList();
-
       res[i] = parts;
     }
     return res;

@@ -10,7 +10,7 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension ChunkedOnIterableX<T> on Iterable<T> {
+extension ChunkedOnIterableExt<T> on Iterable<T> {
   /// Splits the [Iterable] into chunks of a maximum size specified by [chunkSize].
   ///
   /// Each chunk is yielded as a separate [Iterable]. If the number of elements

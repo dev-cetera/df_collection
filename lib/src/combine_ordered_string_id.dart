@@ -16,7 +16,7 @@
 /// For example, this can be used to combine user IDs into a single ID that
 /// represents the group of users.
 String combinedOrderedStringId(List<String> ids) {
-  final sorted = ids..sort((a, b) => a.compareTo(b));
+  final sorted = List.of(ids)..sort((a, b) => a.compareTo(b));
   final combined = sorted.join('_');
   return combined;
 }
