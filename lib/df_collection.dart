@@ -14,6 +14,6 @@
 /// functionality.
 library;
 
-export 'src/_index.g.dart';
+export 'src/_src.g.dart';
 
 export 'package:collection/collection.dart';
