@@ -1,7 +1,5 @@
 <a href="https://www.buymeacoffee.com/dev_cetera" target="_blank"><img align="right" src="https://cdn.buymeacoffee.com/buttons/default-orange.png" height="48"></a>
-<a href="https://discord.gg/gEQ8y2nfyX" target="_blank"><img align="right" src="https://raw.githubusercontent.com/dev-cetera/resources/refs/heads/main/assets/icons/discord_icon/discord_icon.svg" height="48"></a>
-
-https://github.com/dev-cetera/resources/blob/main/assets/icons/discord_icon/discord_icon_96.png
+<a href="https://discord.gg/gEQ8y2nfyX" target="_blank"><img align="right" src="https://raw.githubusercontent.com/dev-cetera/.github/refs/heads/main/assets/icons/discord_icon/discord_icon.svg" height="48"></a>
 
 Dart & Flutter Packages by dev-cetera.com & contributors.
 
