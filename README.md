@@ -1,5 +1,5 @@
 [![pub](https://img.shields.io/pub/v/df_collection.svg)](https://pub.dev/packages/df_collection)
-[![tag](https://img.shields.io/badge/Tag-v0.10.0-purple?logo=github)](https://github.com/dev-cetera/df_collection/tree/v0.10.0)
+[![tag](https://img.shields.io/badge/Tag-v0.11.0-purple?logo=github)](https://github.com/dev-cetera/df_collection/tree/v0.11.0)
 [![buymeacoffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/dev_cetera)
 [![sponsor](https://img.shields.io/badge/Sponsor-grey?logo=github-sponsors&logoColor=pink)](https://github.com/sponsors/dev-cetera)
 [![patreon](https://img.shields.io/badge/Patreon-grey?logo=patreon)](https://www.patreon.com/robelator)
@@ -13,12 +13,12 @@
 
 ## Summary
 
-A package designed to extend Dart collections by offering additional functionality.
+A package designed to extend Dart collections by offering additional functionality. Every mutating- or merging-style function gives you a result that does **not** share mutable substructure with the inputs — you can keep working with the output without worrying about corrupting the data you started from. Pure synchronous, no platform deps; works on the VM, Flutter, web, and across isolates.
 
 ## Example
 
 ```dart
-// Create the cartesian product from a list of sets.
+// Cartesian product from a list of sets.
 {
   final items = [
     {1, 2},
@@ -28,19 +28,56 @@ A package designed to extend Dart collections by offering additional functionali
   print(batches); // [4, 5, 6, 5, 6, 7]
 }
 
-// Split a list into chunks of a maximum size.
+// Split an iterable into chunks of a maximum size.
 {
   final items = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   final batches = items.chunked(4);
   print(batches); // ([1, 2, 3, 4], [5, 6, 7, 8], [9])
 }
 
-// Traverse a map using a list of keys and a set a new value.
+// Traverse a map using a list of keys and set a new value.
 {
   var buffer = <dynamic, dynamic>{};
   buffer.traverse([1, 2, 3, 4], newValue: 5);
   print(buffer); // {1: {2: {3: {4: 5}}}}
   print(buffer.traverse([1, 2, 3, 4])); // 5
+}
+
+// Read a value from anywhere in a nested structure.
+{
+  final data = {
+    'users': [
+      {'name': 'Alice'},
+      {'name': 'Bob', 'roles': {'editor': true}},
+    ],
+  };
+  print(deepGet(data, 'users.1.name'));            // Bob
+  print(deepGet(data, 'users.1.roles.editor'));    // true
+  print(deepGet(data, 'users.99.name'));           // null (safe)
+}
+
+// Deeply merge two structures. The result is fully disjoint from `a` and
+// `b` — mutating it can never corrupt the inputs.
+{
+  final a = {
+    'patient': {'id': 'P-001', 'flags': ['A']},
+  };
+  final b = {
+    'patient': {'flags': ['B'], 'dose_mg': 5},
+  };
+  final merged = mergeDataDeep(a, b);
+  print(merged);
+  // {patient: {id: P-001, flags: [B], dose_mg: 5}}
+}
+
+// Flatten nested JSON into a single-level map of paths.
+{
+  final flat = JsonUtility.i.flattenJson({
+    'user': {'name': 'Alice', 'address': {'city': 'Sydney'}},
+    'tags': ['vip', 'beta'],
+  });
+  print(flat);
+  // {user.name: Alice, user.address.city: Sydney, tags.0: vip, tags.1: beta}
 }
 ```
 
