@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.11.0
+## 0.10.0
 
 - breaking: `mergeDataDeep` now deep-copies all mutable substructure into its result — mutating the merged result no longer mutates the input data. Same guarantee for `mergeListsSetsOrQueues` and `mergeIterables`. Prior versions silently shared `Map`/`List`/`Set`/`Queue` references between the result and the inputs, which was a data-integrity hazard.
 - breaking: `JsonUtility.flattenJson` now throws `StateError` when (a) any key contains the separator (would produce an ambiguous flat path) or (b) two distinct source paths would flatten to the same flat key (silent overwrite of data). Previously the colliding entry was silently dropped.
