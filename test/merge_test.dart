@@ -181,7 +181,7 @@ void main() {
         'aOnlyMap': <String, dynamic>{'x': 1},
         'aOnlyList': <int>[1, 2, 3],
         'both': <String, dynamic>{
-          'inner': <int>[10]
+          'inner': <int>[10],
         },
       };
       final b = <String, dynamic>{

@@ -22,7 +22,9 @@ void main() {
 
     test('empty map returns empty', () {
       expect(
-          nullFilteredMap<String, int>(<dynamic, dynamic>{}), <String, int>{});
+        nullFilteredMap<String, int>(<dynamic, dynamic>{}),
+        <String, int>{},
+      );
     });
 
     test('mismatched element types throw on cast', () {
