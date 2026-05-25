@@ -12,14 +12,13 @@
 //.title~
 
 extension TryMergeOnIterableExt<T> on Iterable<Iterable<T>?> {
-  /// Tries to merge the iterables, returning null if it fails.
+  /// Tries to merge the iterables, returning null if the outer iterable is
+  /// empty. Exceptions thrown by [merge] (including `Error` subclasses)
+  /// propagate to the caller.
   Iterable<T>? tryMerge([
     Iterable<T> Function(Iterable<T>?, Iterable<T>?)? merge,
   ]) {
-    try {
-      return reduce(merge ?? (a, b) => <T>[...a ?? [], ...b ?? []]);
-    } catch (_) {
-      return null;
-    }
+    if (isEmpty) return null;
+    return reduce(merge ?? (a, b) => <T>[...a ?? [], ...b ?? []]);
   }
 }

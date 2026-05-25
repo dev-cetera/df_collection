@@ -15,11 +15,11 @@ name: df_collection
 homepage: https://dev-cetera.com/
 repository: https://github.com/robmllze/df_collection
 funding:
-- https://www.buymeacoffee.com/dev_cetera
-- https://www.patreon.com/c/RobertMollentze
-- https://github.com/sponsors/robmllze
+  - https://www.buymeacoffee.com/dev_cetera
+  - https://www.patreon.com/c/robelator
+  - https://github.com/sponsors/robelator
 description: A package designed to extend Dart collections by offering additional functionality.
-version: 0.9.8
+version: 0.11.0
 topics:
   - collection
   - json
@@ -36,11 +36,11 @@ environment:
 
 dependencies:
   collection: ^1.19.1
-  df_type: ^0.14.2
+  df_type: ^0.16.0
 
 ## -----------------------------------------------------------------------------
 
 dev_dependencies:
   lints: ^6.0.0
-  test:
+  test: ^1.31.1
 

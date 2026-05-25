@@ -44,6 +44,9 @@ final _chunked = chunked;
 /// print(chunks); // [[1, 2], [3, 4], [5]]
 /// ```
 Iterable<Iterable<T>> chunked<T>(Iterable<T> source, int chunkSize) sync* {
+  if (chunkSize <= 0) {
+    throw ArgumentError.value(chunkSize, 'chunkSize', 'must be greater than 0');
+  }
   var batch = <T>[];
   for (final item in source) {
     batch.add(item);

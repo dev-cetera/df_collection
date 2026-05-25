@@ -25,22 +25,22 @@ dynamic traverseMap(
   for (var n = 0; n < keys.length; n++) {
     final key = keys.elementAt(n);
     if (n == keys.length - 1) {
+      if (current is! Map) return null;
       if (newValue != null) {
         current[key] = newValue;
-        return;
+        return newValue;
       } else {
         return current[key];
       }
     } else {
       if (current is Map && current.containsKey(key)) {
         current = current[key];
+      } else if (current is Map && newValue != null) {
+        final next = <dynamic, dynamic>{};
+        current[key] = next;
+        current = next;
       } else {
-        if (newValue != null) {
-          current[key] = <dynamic, dynamic>{};
-          current = current[key];
-        } else {
-          return null;
-        }
+        return null;
       }
     }
   }

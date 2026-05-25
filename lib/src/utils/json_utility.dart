@@ -108,20 +108,52 @@ final class JsonUtility {
   }) {
     Map<String, dynamic> $flattenJson(dynamic input, [String prefix = '']) {
       final result = <String, dynamic>{};
+      void put(String path, dynamic value) {
+        // Detect silent collisions where two different source paths map to
+        // the same flat key — this would be a data-loss bug for any caller.
+        if (result.containsKey(path)) {
+          throw StateError(
+            '[JsonUtility.flattenJson] Path collision at "$path". Two distinct '
+            'source paths produced the same flat key. This usually means a '
+            'key in the input contains the separator "$separator", or a '
+            'nested structure conflicts with a literal dotted key.',
+          );
+        }
+        result[path] = value;
+      }
+
       void flatten(String path, dynamic value) {
         if (value is Map) {
+          if (value.isEmpty) {
+            if (path.isNotEmpty) put(path, value);
+            return;
+          }
           for (final entry in value.entries) {
             final k = entry.key;
             final v = entry.value;
-            final newPath = path.isEmpty ? k.toString() : '$path$separator$k';
+            final keyStr = k.toString();
+            if (keyStr.contains(separator)) {
+              throw StateError(
+                '[JsonUtility.flattenJson] Source key "$keyStr" contains the '
+                'separator "$separator"; flattening would produce an '
+                'ambiguous path. Pick a separator that does not appear in '
+                'any key.',
+              );
+            }
+            final newPath = path.isEmpty ? keyStr : '$path$separator$keyStr';
             flatten(newPath, v);
           }
         } else if (value is List) {
+          if (value.isEmpty) {
+            if (path.isNotEmpty) put(path, value);
+            return;
+          }
           for (var i = 0; i < value.length; i++) {
-            flatten('$path$separator$i', value[i]);
+            final newPath = path.isEmpty ? '$i' : '$path$separator$i';
+            flatten(newPath, value[i]);
           }
         } else {
-          result[path] = value;
+          put(path, value);
         }
       }
 
@@ -147,6 +179,7 @@ final class JsonUtility {
     Set<Type> typesAllowed,
     String? Function(dynamic)? keyConverter,
   ) {
+    if (input == null) return null;
     if (input is Map) {
       return input.map(
         (k, v) => MapEntry(
@@ -157,14 +190,19 @@ final class JsonUtility {
     } else if (input is Iterable) {
       return input.map((e) => _mapToJson(e, typesAllowed, keyConverter)).toList();
     }
-    if ({
-      bool,
-      String,
-      int,
-      double,
-      num,
-      ...typesAllowed,
-    }.contains(input.runtimeType)) {
+    // Reject NaN/Infinity — these are not representable in standard JSON
+    // (`dart:convert.jsonEncode` would fail) and silently passing them
+    // through is a data-integrity hazard.
+    if (input is double && !input.isFinite) {
+      throw UnsupportedError(
+        '[JsonUtility.mapToJson] Non-finite double ($input) cannot be '
+        'represented in standard JSON.',
+      );
+    }
+    if (input is bool || input is num || input is String) {
+      return input;
+    }
+    if (typesAllowed.contains(input.runtimeType)) {
       return input;
     }
     throw UnsupportedError(

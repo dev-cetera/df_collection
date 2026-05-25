@@ -20,6 +20,7 @@ extension TakeLastOnIterableExt<T> on Iterable<T> {
     if (count <= 0) return Iterable<T>.empty();
     if (this is List) {
       final list = this as List<T>;
+      if (count >= list.length) return list;
       return list.skip(list.length - count);
     }
     final queue = Queue<T>();

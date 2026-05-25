@@ -63,22 +63,40 @@ dynamic deepGetFromSegments(
     if (current == null) {
       return null;
     }
-    if (current is Iterable) {
-      num? index;
-      if (segment is num) {
-        index = segment;
-      } else if (segment is String) {
-        index = num.tryParse(segment);
-      }
-      if (index != null && index >= 0 && index < current.length) {
-        current = current.elementAt(index.toInt());
-      } else {
+    if (current is List) {
+      final index = _asIntIndex(segment);
+      if (index == null || index < 0 || index >= current.length) {
         return null;
       }
+      current = current[index];
+    } else if (current is Iterable) {
+      // Non-List iterables (notably `Set`) have implementation-defined
+      // element order, so numeric indexing into them would be
+      // non-deterministic. For medical-grade safety we refuse to traverse
+      // them positionally — callers should convert to a List first if they
+      // really mean "the nth element".
+      return null;
     } else if (current is Map) {
       current = current[segment];
     } else {
       return null;
     }
   }
+  return current;
+}
+
+/// Returns [segment] as a non-negative int index, or `null` if it does not
+/// represent an exact integer in `[0, 2^53)`. Doubles such as `3.5` and
+/// strings like `"3.5"` are rejected (they would otherwise truncate
+/// silently); strings such as `"3"` and ints are accepted.
+int? _asIntIndex(dynamic segment) {
+  if (segment is int) return segment;
+  if (segment is double) {
+    if (!segment.isFinite || segment != segment.truncateToDouble()) return null;
+    return segment.toInt();
+  }
+  if (segment is String) {
+    return int.tryParse(segment);
+  }
+  return null;
 }

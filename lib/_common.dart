@@ -11,14 +11,8 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-extension TryReduceOnIterableExt<T> on Iterable<T> {
-  /// Tries to reduce the iterable, returning null if the iterable is empty.
-  ///
-  /// Exceptions thrown by [combine] (including `Error` subclasses such as
-  /// `StackOverflowError`) propagate to the caller — only the
-  /// `StateError("No element")` from reducing an empty iterable is caught.
-  T? tryReduce(T Function(T, T) combine) {
-    if (isEmpty) return null;
-    return reduce(combine);
-  }
-}
+// Internal-only umbrella import. Files under lib/src/ import this as
+// `import '/_common.dart';`. Re-export third-party APIs the package depends on
+// here so individual sources don't repeat the same imports.
+
+export 'src/_src.g.dart';
