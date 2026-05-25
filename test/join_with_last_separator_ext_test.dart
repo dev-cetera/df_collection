@@ -28,7 +28,8 @@ void main() {
 
     test('custom separators', () {
       expect(
-        ['a', 'b', 'c'].joinWithLastSeparator(separator: '; ', lastSeparator: ' and '),
+        ['a', 'b', 'c']
+            .joinWithLastSeparator(separator: '; ', lastSeparator: ' and '),
         'a; b and c',
       );
     });

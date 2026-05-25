@@ -21,7 +21,8 @@ void main() {
     });
 
     test('empty map returns empty', () {
-      expect(nullFilteredMap<String, int>(<dynamic, dynamic>{}), <String, int>{});
+      expect(
+          nullFilteredMap<String, int>(<dynamic, dynamic>{}), <String, int>{});
     });
 
     test('mismatched element types throw on cast', () {

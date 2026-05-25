@@ -180,7 +180,9 @@ void main() {
       final a = <String, dynamic>{
         'aOnlyMap': <String, dynamic>{'x': 1},
         'aOnlyList': <int>[1, 2, 3],
-        'both': <String, dynamic>{'inner': <int>[10]},
+        'both': <String, dynamic>{
+          'inner': <int>[10]
+        },
       };
       final b = <String, dynamic>{
         'both': <String, dynamic>{'extra': 99},
@@ -299,7 +301,8 @@ void main() {
     test('applies toJson when merging scalar against object', () {
       final a = {'k': 1};
       final b = {'k': _ToJsonable(5)};
-      final merged = mergeDataDeepIncludeCallsToJson(a, b) as Map<dynamic, dynamic>;
+      final merged =
+          mergeDataDeepIncludeCallsToJson(a, b) as Map<dynamic, dynamic>;
       expect(merged['k'], {'x': 5});
     });
   });
@@ -308,7 +311,8 @@ void main() {
     test('applies toMap when merging scalar against object', () {
       final a = {'k': 1};
       final b = {'k': _Mappable(8)};
-      final merged = mergeDataDeepIncludeCallsToMap(a, b) as Map<dynamic, dynamic>;
+      final merged =
+          mergeDataDeepIncludeCallsToMap(a, b) as Map<dynamic, dynamic>;
       expect(merged['k'], {'y': 8});
     });
   });

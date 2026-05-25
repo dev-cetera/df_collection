@@ -151,7 +151,8 @@ void main() {
 
   group('JsonUtility.mapToJson', () {
     test('round-trips scalar map with string keys', () {
-      final result = JsonUtility.i.mapToJson({'a': 1, 'b': 2.5, 'c': true, 'd': 'x'});
+      final result =
+          JsonUtility.i.mapToJson({'a': 1, 'b': 2.5, 'c': true, 'd': 'x'});
       expect(result, {'a': 1, 'b': 2.5, 'c': true, 'd': 'x'});
     });
 

@@ -171,7 +171,8 @@ final class JsonUtility {
     Set<Type> typesAllowed = const {},
     String? Function(dynamic)? keyConverter,
   }) {
-    return _mapToJson(input, typesAllowed, keyConverter) as Map<String, dynamic>;
+    return _mapToJson(input, typesAllowed, keyConverter)
+        as Map<String, dynamic>;
   }
 
   dynamic _mapToJson(
@@ -188,7 +189,9 @@ final class JsonUtility {
         ),
       );
     } else if (input is Iterable) {
-      return input.map((e) => _mapToJson(e, typesAllowed, keyConverter)).toList();
+      return input
+          .map((e) => _mapToJson(e, typesAllowed, keyConverter))
+          .toList();
     }
     // Reject NaN/Infinity — these are not representable in standard JSON
     // (`dart:convert.jsonEncode` would fail) and silently passing them
