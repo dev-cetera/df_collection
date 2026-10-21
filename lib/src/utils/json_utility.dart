@@ -15,7 +15,11 @@ final class JsonUtility {
   const JsonUtility._();
   static final i = const JsonUtility._();
 
-  /// Expands a Json map, e.g. `{'a': {'b': 1}}` to `{a.b: 1, b: 1}`.
+  /// Flattens [input] with [flattenJson], then adds a shortened alias key for
+  /// every path suffix, as [expandFlattenedJson] does:
+  /// `{'a': {'b': 1}}` becomes `{'a.b': 1, 'b': 1}`.
+  ///
+  /// This does **not** rebuild nested maps; for that, see [unflattenJson].
   Map<String, dynamic> expandJson(
     Map<String, dynamic> input, {
     String separator = '.',
@@ -26,7 +30,17 @@ final class JsonUtility {
     );
   }
 
-  /// Expands a flattened JSON map, e.g. `{'a.b': 1}` to `{a.b: 1, b: 1}`.
+  /// Adds a shortened alias key for every path suffix of every key in a
+  /// flattened map, so a leaf can also be looked up by the tail of its path:
+  /// `{'a.b.c': 1}` becomes `{'a.b.c': 1, 'b.c': 1, 'c': 1}`.
+  ///
+  /// The original keys are kept. An alias never replaces a key that is
+  /// already present: a key in [input] always wins, and when two paths share
+  /// a tail (`{'x.c': 1, 'y.c': 2}`), the alias `c` points at whichever path
+  /// comes first in [input]'s iteration order.
+  ///
+  /// This does **not** rebuild nested maps (`{'a.b': 1}` is not turned into
+  /// `{'a': {'b': 1}}`); for that, see [unflattenJson].
   Map<String, dynamic> expandFlattenedJson(
     Map<String, dynamic> input, {
     String separator = '.',
@@ -51,6 +65,64 @@ final class JsonUtility {
     }
 
     return res;
+  }
+
+  /// Rebuilds nested maps from a flattened map, the inverse of [flattenJson]
+  /// for nested maps: `{'a.b': 1, 'a.c': 2}` becomes
+  /// `{'a': {'b': 1, 'c': 2}}`.
+  ///
+  /// Each key is split on [separator] and its value placed at that path.
+  /// Lists are not rebuilt: [flattenJson]'s list indices come back as map
+  /// keys (`{'list.0': 10}` becomes `{'list': {'0': 10}}`), because a map
+  /// whose keys happen to be `0`, `1`, … cannot be told apart from a list.
+  ///
+  /// Throws [StateError] when one key is both a value and the parent of
+  /// another key (`{'a': 1, 'a.b': 2}`), since keeping either would silently
+  /// drop the other. Throws [ArgumentError] when [separator] is empty.
+  Map<String, dynamic> unflattenJson(
+    Map<String, dynamic> input, {
+    String separator = '.',
+  }) {
+    if (separator.isEmpty) {
+      throw ArgumentError.value(separator, 'separator', 'Must not be empty');
+    }
+    final result = <String, dynamic>{};
+    // The maps this method created as parents. A leaf value that happens to
+    // be a Map (e.g. an empty map from flattenJson) is not one of them, so a
+    // key below it is still a collision.
+    final parents = Set<Map<String, dynamic>>.identity()..add(result);
+    for (final entry in input.entries) {
+      final segments = entry.key.split(separator);
+      var node = result;
+      for (var i = 0; i < segments.length - 1; i++) {
+        final segment = segments[i];
+        final existing = node[segment];
+        if (existing is Map<String, dynamic> && parents.contains(existing)) {
+          node = existing;
+          continue;
+        }
+        if (node.containsKey(segment)) {
+          throw StateError(
+            '[JsonUtility.unflattenJson] Key "${entry.key}" needs '
+            '"${segments.take(i + 1).join(separator)}" to be a parent, but '
+            'that key already holds a value.',
+          );
+        }
+        final child = <String, dynamic>{};
+        parents.add(child);
+        node[segment] = child;
+        node = child;
+      }
+      final leaf = segments.last;
+      if (node.containsKey(leaf)) {
+        throw StateError(
+          '[JsonUtility.unflattenJson] Key "${entry.key}" collides with '
+          'another key: "${entry.key}" is already the parent of other keys.',
+        );
+      }
+      node[leaf] = entry.value;
+    }
+    return result;
   }
 
   /// Flattens a nested JSON object into a single-level map with string keys.
@@ -166,6 +238,11 @@ final class JsonUtility {
 
   /// Converts a map to a Json map by recursively converting its keys and values
   /// to Json compatible types.
+  ///
+  /// Keys become strings via [keyConverter] if given and non-null, else
+  /// `DateTime` keys become their `microsecondsSinceEpoch`, else `toString()`.
+  /// Throws [ArgumentError] when two keys of the same map become the same
+  /// string (e.g. `{1: 'a', '1': 'b'}`), rather than silently dropping one.
   Map<String, dynamic> mapToJson<T1, T2>(
     Map<T1, T2> input, {
     Set<Type> typesAllowed = const {},
@@ -182,12 +259,22 @@ final class JsonUtility {
   ) {
     if (input == null) return null;
     if (input is Map) {
-      return input.map(
-        (k, v) => MapEntry(
-          keyConverter?.call(k) ?? _defaultKeyConverter(k) ?? k.toString(),
-          _mapToJson(v, typesAllowed, keyConverter),
-        ),
-      );
+      final result = <String, dynamic>{};
+      for (final MapEntry(key: k, value: v) in input.entries) {
+        final key =
+            keyConverter?.call(k) ?? _defaultKeyConverter(k) ?? k.toString();
+        if (result.containsKey(key)) {
+          throw ArgumentError.value(
+            input,
+            'input',
+            '[JsonUtility.mapToJson] Two keys convert to the same JSON key '
+                '"$key" (the second is $k of type ${k.runtimeType}); one '
+                'would be silently dropped.',
+          );
+        }
+        result[key] = _mapToJson(v, typesAllowed, keyConverter);
+      }
+      return result;
     } else if (input is Iterable) {
       return input
           .map((e) => _mapToJson(e, typesAllowed, keyConverter))

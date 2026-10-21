@@ -35,10 +35,13 @@ final _unique = unique;
 ///
 /// The order of the elements in the returned iterable is the same as
 /// the order in which they appear in the original iterable.
+///
+/// Without [equals] the result is lazy: each iteration walks [src] afresh,
+/// so it can be iterated any number of times and reflects later changes to
+/// [src]. With [equals] the result is computed once, eagerly.
 Iterable<T> unique<T>(Iterable<T> src, [bool Function(T a, T b)? equals]) {
   if (equals == null) {
-    final seen = <T>{};
-    return src.where((element) => seen.add(element));
+    return _uniqueByHash(src);
   } else {
     final uniqueList = <T>[];
     for (var element in src) {
@@ -47,5 +50,16 @@ Iterable<T> unique<T>(Iterable<T> src, [bool Function(T a, T b)? equals]) {
       }
     }
     return uniqueList;
+  }
+}
+
+/// Yields the first occurrence of each element of [src], using `==` and
+/// `hashCode`. A `sync*` body gives every iteration its own `seen` set; a
+/// single set shared across iterations would make every element look
+/// already-seen on the second pass.
+Iterable<T> _uniqueByHash<T>(Iterable<T> src) sync* {
+  final seen = <T>{};
+  for (final element in src) {
+    if (seen.add(element)) yield element;
   }
 }

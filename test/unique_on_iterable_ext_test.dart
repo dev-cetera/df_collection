@@ -46,4 +46,30 @@ void main() {
       expect(unique<int>([1, 2, 1]).toList(), [1, 2]);
     });
   });
+
+  group('unique result can be iterated more than once', () {
+    test('default equality: second pass yields the same elements', () {
+      final r = [1, 2, 1, 3].unique();
+      expect(r.toList(), [1, 2, 3]);
+      expect(r.toList(), [1, 2, 3]);
+      expect(r.length, 3);
+      expect(r.first, 1);
+    });
+
+    test('default equality: stays lazy and sees later source changes', () {
+      final src = [1, 1];
+      final r = src.unique();
+      expect(r.toList(), [1]);
+      src.add(2);
+      expect(r.toList(), [1, 2]);
+    });
+
+    test('custom equality: second pass yields the same elements', () {
+      final r = ['A', 'a', 'B'].unique(
+        (x, y) => x.toLowerCase() == y.toLowerCase(),
+      );
+      expect(r.toList(), ['A', 'B']);
+      expect(r.toList(), ['A', 'B']);
+    });
+  });
 }

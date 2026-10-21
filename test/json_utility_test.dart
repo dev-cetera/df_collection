@@ -149,7 +149,119 @@ void main() {
     });
   });
 
+  group('JsonUtility.unflattenJson', () {
+    test('rebuilds nested maps from dotted keys', () {
+      expect(JsonUtility.i.unflattenJson({'a.b': 1}), {
+        'a': {'b': 1},
+      });
+      expect(
+        JsonUtility.i.unflattenJson({'a.b.c': 1, 'a.b.d': 2, 'a.e': 3, 'f': 4}),
+        {
+          'a': {
+            'b': {'c': 1, 'd': 2},
+            'e': 3,
+          },
+          'f': 4,
+        },
+      );
+    });
+
+    test('does not add shortened alias keys', () {
+      final r = JsonUtility.i.unflattenJson({'a.b': 1});
+      expect(r.containsKey('b'), isFalse);
+      expect(r.containsKey('a.b'), isFalse);
+    });
+
+    test('round-trips flattenJson for nested maps', () {
+      final nested = <String, dynamic>{
+        'user': {
+          'name': 'P',
+          'address': {'city': 'Sydney', 'zip': '2000'},
+        },
+        'empty': <String, dynamic>{},
+        'n': null,
+      };
+      expect(
+        JsonUtility.i.unflattenJson(JsonUtility.i.flattenJson(nested)),
+        nested,
+      );
+    });
+
+    test('list indices come back as map keys', () {
+      expect(
+        JsonUtility.i.unflattenJson(
+          JsonUtility.i.flattenJson({
+            'list': [10, 20],
+          }),
+        ),
+        {
+          'list': {'0': 10, '1': 20},
+        },
+      );
+    });
+
+    test('custom separator', () {
+      expect(JsonUtility.i.unflattenJson({'a|b': 1}, separator: '|'), {
+        'a': {'b': 1},
+      });
+    });
+
+    test('a key that is both a value and a parent throws', () {
+      expect(
+        () => JsonUtility.i.unflattenJson({'a': 1, 'a.b': 2}),
+        throwsA(isA<StateError>()),
+      );
+      expect(
+        () => JsonUtility.i.unflattenJson({'a.b': 2, 'a': 1}),
+        throwsA(isA<StateError>()),
+      );
+      expect(
+        () => JsonUtility.i.unflattenJson({'a': <String, dynamic>{}, 'a.b': 2}),
+        throwsA(isA<StateError>()),
+      );
+    });
+
+    test('empty separator throws', () {
+      expect(
+        () => JsonUtility.i.unflattenJson({'a': 1}, separator: ''),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+  });
+
   group('JsonUtility.mapToJson', () {
+    test('keys that stringify to the same key throw, naming the key', () {
+      expect(
+        () => JsonUtility.i.mapToJson({1: 'a', '1': 'b'}),
+        throwsA(
+          isA<ArgumentError>().having(
+            (e) => e.toString(),
+            'message',
+            contains('"1"'),
+          ),
+        ),
+      );
+    });
+
+    test('colliding keys in a nested map throw', () {
+      expect(
+        () => JsonUtility.i.mapToJson({
+          'outer': {1: 'a', '1': 'b'},
+        }),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
+    test('keyConverter collisions throw', () {
+      expect(
+        () => JsonUtility.i.mapToJson(
+          {'a': 1, 'b': 2},
+          keyConverter: (_) => 'same',
+        ),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
     test('round-trips scalar map with string keys', () {
       final result =
           JsonUtility.i.mapToJson({'a': 1, 'b': 2.5, 'c': true, 'd': 'x'});

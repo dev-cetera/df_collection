@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.1
+
+- fix: `unique()` without `equals` returns an iterable that can be iterated more than once. Previously every pass after the first was empty, because all passes shared one "seen" set. The result is still lazy.
+- fix: `JsonUtility.mapToJson` throws `ArgumentError` naming the key when two keys of one map convert to the same JSON key (e.g. `{1: 'a', '1': 'b'}`, or a `keyConverter` collision). Previously one entry was silently dropped.
+- feat: Add `JsonUtility.unflattenJson`, the inverse of `flattenJson` for nested maps: `{'a.b': 1}` becomes `{'a': {'b': 1}}`. A key that is both a value and a parent (`{'a': 1, 'a.b': 2}`) throws `StateError` instead of silently losing one.
+- docs: `expandJson` / `expandFlattenedJson` are documented as what they are: they add shortened suffix alias keys (`{'a.b': 1}` → `{'a.b': 1, 'b': 1}`), they do not un-flatten. Behaviour unchanged (df_config's relative-key lookup depends on it).
+
 ## 0.10.0
 
 - breaking: `mergeDataDeep` now deep-copies all mutable substructure into its result — mutating the merged result no longer mutates the input data. Same guarantee for `mergeListsSetsOrQueues` and `mergeIterables`. Prior versions silently shared `Map`/`List`/`Set`/`Queue` references between the result and the inputs, which was a data-integrity hazard.
