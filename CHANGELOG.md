@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.11.4]
+
+- Merge branch 'main' into prod
+
+
 ## [0.11.3]
 
 - Merge branch 'main' into prod
