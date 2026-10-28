@@ -1,5 +1,11 @@
 # Changelog
 
+
+## [0.11.0]
+
+- chore: standardize README and CI/CD workflows, remove donation links, update contact info and repository links
+- chore: resolve analyzer issues
+
 ## 0.10.1
 
 - fix: `unique()` without `equals` returns an iterable that can be iterated more than once. Previously every pass after the first was empty, because all passes shared one "seen" set. The result is still lazy.
